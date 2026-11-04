@@ -1,0 +1,14 @@
+# 数据路径
+data_path = './data'
+# 数据是否下载
+download = 'False'
+# 一批大小
+size = 256
+# 子进程数
+num_workers = 8
+# 是否锁定内存
+pin_memory = 'True'
+# 是否非阻塞传输
+non_blocking = 'True'
+# 是否持久化子进程
+persistent_workers = 'True'

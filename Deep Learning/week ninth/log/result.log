@@ -1,0 +1,11 @@
+Epoch:1, Train Loss:2.0447, Test Acc: 0.3697
+Epoch:2, Train Loss:1.4751, Test Acc: 0.5422
+Epoch:3, Train Loss:1.1699, Test Acc: 0.6486
+Epoch:4, Train Loss:0.9317, Test Acc: 0.6843
+Epoch:5, Train Loss:0.7552, Test Acc: 0.7329
+Epoch:6, Train Loss:0.6212, Test Acc: 0.7557
+Epoch:7, Train Loss:0.5081, Test Acc: 0.7677
+Epoch:8, Train Loss:0.4049, Test Acc: 0.7816
+Epoch:9, Train Loss:0.3182, Test Acc: 0.7767
+Epoch:10, Train Loss:0.2574, Test Acc: 0.7799
+Early stopping, 0.7816 is best test acc. Best model saved.

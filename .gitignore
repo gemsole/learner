@@ -1,7 +1,9 @@
 *.pth
 account/
 DataExcavate/
-Deep Learning/
+# Deep Learning/data/
+**/data/
+**/__pycache__/
 phone/
 test/
 Web/
