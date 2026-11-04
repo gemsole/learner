@@ -1,0 +1,26 @@
+.father {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(192, 255, 199);
+}
+
+.son1:hover {
+    transform: translate(0, 100px);
+}
+
+.son2:hover {
+    transform: scale(2, 0.5);
+}
+
+.son3:hover {
+    transform: rotate(45deg);
+}
+
+.son4:hover {
+    transform: skew(10deg, 20deg);
+}

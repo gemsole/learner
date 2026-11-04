@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>国际租车 | 悦行网</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/international.css">
+    <link rel="stylesheet" href="./css/site-shell.css">
+    <script src="./js/config.js"></script>
+    <script src="./js/cars-data.js"></script>
+    <script src="./js/ripple.js" defer></script>
+    <script src="./js/click-fx.js" defer></script>
+    <script src="./js/fleet-filter.js" defer></script>
+</head>
+
+<body class="page-intl">
+
+    <!-- 头部导航：共享区块，由 js/shell.js 在此原位渲染（active 按当前页自动判定） -->
+    <script src="./js/shell.js" data-shell="header"></script>
+
+    <div class="site-shell">
+
+        <!-- 首屏：车内外视角的公路图作为整幅背景 -->
+        <div class="intl-hero">
+            <div class="intl-hero-inner">
+                <h1 class="intl-title"><span class="intl-title-char">国</span><span class="intl-title-char">际</span><span
+                        class="intl-title-char">租</span><span class="intl-title-char">车</span></h1>
+                <p class="intl-script">International car rental</p>
+                <p class="intl-desc">在 42 个国家取车，中文客服全程在线。</p>
+            </div>
+        </div>
+
+        <!-- 预订控制台：两条行，分别处理取车与还车 -->
+        <div class="booking">
+            <form class="booking-panel" action="#" method="get">
+                <div class="booking-row">
+                    <span class="booking-tag">取车</span>
+
+                    <label class="field">
+                        <span class="field-label">取车城市</span>
+                        <span class="field-wrap field-wrap--select">
+                            <!-- 城市选项由 js/fleet-render.js 按配置（cityGroups）填充 -->
+                            <select class="field-input" name="pickup-city">
+                                <option value="" selected disabled>请选择取车城市</option>
+                            </select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">取车门店</span>
+                        <span class="field-wrap field-wrap--select">
+                            <select class="field-input" name="pickup-store">
+                                <option value="" selected disabled>请选择取车门店</option>
+                                <option value="airport">机场店</option>
+                                <option value="downtown">市中心店</option>
+                                <option value="station">火车站店</option>
+                            </select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">取车日期</span>
+                        <span class="field-wrap">
+                            <input class="field-input" type="date" name="pickup-date">
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">取车时间</span>
+                        <span class="field-wrap field-wrap--select">
+                                <!-- 时段档位由 js/fleet-render.js 按配置（timeSlots）填充 -->
+                                <select class="field-input" name="pickup-time"></select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="booking-row">
+                    <span class="booking-tag">还车</span>
+
+                    <label class="field">
+                        <span class="field-label">还车城市</span>
+                        <span class="field-wrap field-wrap--select">
+                            <!-- 城市选项由 js/fleet-render.js 按配置（cityGroups）填充 -->
+                            <select class="field-input" name="return-city">
+                                <option value="" selected disabled>请选择还车城市</option>
+                            </select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">还车门店</span>
+                        <span class="field-wrap field-wrap--select">
+                            <select class="field-input" name="return-store">
+                                <option value="" selected disabled>请选择还车门店</option>
+                                <option value="airport">机场店</option>
+                                <option value="downtown">市中心店</option>
+                                <option value="station">火车站店</option>
+                            </select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">还车日期</span>
+                        <span class="field-wrap">
+                            <input class="field-input" type="date" name="return-date">
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">还车时间</span>
+                        <span class="field-wrap field-wrap--select">
+                                <!-- 时段档位由 js/fleet-render.js 按配置（timeSlots）填充 -->
+                                <select class="field-input" name="return-time"></select>
+                            <span class="field-caret" aria-hidden="true"></span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="booking-foot">
+                    <p class="booking-note">短租 2 天起，里程不限。取还车时间以当地时间计算，国际订单由中文客服跟进。</p>
+                    <button type="button" class="booking-submit">立即选车</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 车队筛选台：车型组 / 座位 / 品牌，下接排序条 -->
+        <div class="fleet">
+            <div class="fleet-panel">
+                <div class="fleet-row">
+                    <span class="fleet-tag">车型组</span>
+                    <div class="type-grid">
+                        <a class="type-card is-active" data-filter="all" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M3 26.5 C3 23.6 5.2 22 9.5 21.2 L14.5 20.6 L19.5 15.2 C21 13.5 23.5 12.5 26.5 12.5 L35 12.5 C39 12.5 42 13.7 44.5 15.9 L49 19.7 L54 20.5 C58 21.3 60.5 22.9 60.5 25 L60.5 26.5 L3 26.5 Z M22.8 18.3 L26.2 14.7 C27 13.9 28 13.5 29.2 13.5 L33.2 13.5 L33.2 18.3 Z M36.2 13.7 L39.8 13.7 C42 13.7 43.8 14.5 45.2 15.9 L47.6 18.3 L36.2 18.3 Z" />
+                                <path fill-rule="evenodd"
+                                    d="M17.5 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M17.5 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M46 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M46 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>热门车型</span>
+                        </a>
+                        <a class="type-card" data-filter="suv" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M4 27 L4 20 C4 17.8 5.4 16.6 8 16.2 L10.6 9.8 C11.3 8 12.9 7 15.5 7 L38 7 C40.6 7 42.2 8 43.4 9.8 L48.2 16.2 C53.5 17 60 18.3 60 22.5 L60 27 L4 27 Z M15 15.4 L17.8 9.9 C18.2 9.1 19 8.7 20.2 8.7 L27.5 8.7 L27.5 15.4 Z M30.5 8.7 L37.4 8.7 C38.7 8.7 39.5 9.1 40.1 10 L44 15.4 L30.5 15.4 Z" />
+                                <path class="ic-line" d="M13.5 4.8 L39.5 4.8" />
+                                <path fill-rule="evenodd"
+                                    d="M18.5 27 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M18.5 27 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M45.5 27 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M45.5 27 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>越野车</span>
+                        </a>
+                        <a class="type-card" data-filter="bus" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M4 27.5 L4 11 C4 8.8 5.8 7 8 7 L53.5 7 C57.1 7 60 9.9 60 13.5 L60 24 C60 26 58.5 27.5 56.5 27.5 L4 27.5 Z M9.2 11 L16.4 11 L16.4 16.2 L9.2 16.2 Z M20.4 11 L27.6 11 L27.6 16.2 L20.4 16.2 Z M31.6 11 L38.8 11 L38.8 16.2 L31.6 16.2 Z M49 11 L54.6 11 C56.5 11 58 12.5 58 14.4 L58 16.8 L49 16.8 Z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.8 27.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M15.8 27.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M43.5 27.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M43.5 27.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>大客车</span>
+                        </a>
+                        <a class="type-card" data-filter="mpv" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M4 27 L4 15 C4 11.6 6 9.5 10 8.9 L27 7.3 C32 7 35.4 7.9 38.6 10.3 L47.5 17 L54.5 19 C58 20 60 21.8 60 24.4 L60 27 L4 27 Z M12 15.8 L14.7 10.5 C15.1 9.8 15.8 9.4 16.8 9.3 L27.5 8.7 L27.5 15.8 Z M30.5 9.6 L36.6 10.6 C37.6 10.8 38.4 11.2 39.1 11.9 L44.2 15.8 L30.5 15.8 Z" />
+                                <path fill-rule="evenodd"
+                                    d="M18.5 27 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M18.5 27 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M45.5 27 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M45.5 27 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>商务车</span>
+                        </a>
+                        <a class="type-card" data-filter="sport" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M47.5 11 L60 11 L60 13.2 L47.5 13.2 Z" />
+                                <path fill-rule="evenodd"
+                                    d="M3 26.5 C3 24.1 5.5 22.7 10 22 L20.5 15.8 C24.6 13.2 30 12.2 36 13.2 L46.5 15.6 C54 17.2 60.5 19.7 60.5 23.3 L60.5 26.5 L3 26.5 Z M27.5 16.6 L32.5 13.9 C34.3 13.3 36.2 13.3 38.2 13.7 L43 14.7 L45.8 17 L27.5 17 Z" />
+                                <path fill-rule="evenodd"
+                                    d="M17.5 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M17.5 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M46 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M46 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>跑车</span>
+                        </a>
+                        <a class="type-card" data-filter="conv" href="#">
+                            <svg viewBox="0 0 64 40" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M4 26.5 C4 23.9 6.8 22.3 11.5 21.5 L18 17.2 C20.2 15.6 23.2 15 26.4 15.7 L33.5 17.4 C39 18.5 43.5 19.8 47 21.7 C54.5 22.8 59.5 24.4 59.5 26.1 L59.5 26.5 L4 26.5 Z" />
+                                <path class="ic-line" d="M24.5 15.7 L28.8 11.3" />
+                                <path class="ic-line" d="M33.8 17 C34.1 14 36.1 12.9 38.7 13.5" />
+                                <path fill-rule="evenodd"
+                                    d="M17.5 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M17.5 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                                <path fill-rule="evenodd"
+                                    d="M45 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M45 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            </svg>
+                            <span>个性车</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fleet-row">
+                    <span class="fleet-tag">车辆座位</span>
+                    <div class="fleet-opts">
+                        <label class="opt"><input type="radio" name="seat" value="all" checked><i
+                                class="opt-box"></i>不限</label>
+                        <label class="opt"><input type="radio" name="seat" value="5-"><i
+                                class="opt-box"></i>五座及以下</label>
+                        <label class="opt"><input type="radio" name="seat" value="5+"><i
+                                class="opt-box"></i>五座及以上</label>
+                    </div>
+                </div>
+
+                <div class="fleet-row">
+                    <span class="fleet-tag">指定品牌</span>
+                    <!-- 品牌选项由 js/fleet-render.js 按配置（brands）填充 -->
+                    <div class="fleet-opts" id="brand-opts"></div>
+                </div>
+            </div>
+
+            <!-- 排序与服务筛选条 -->
+            <div class="sort-bar">
+                <label class="opt"><input type="checkbox" name="sort" value="default" checked><i
+                        class="opt-box"></i>综合推荐</label>
+                <label class="opt"><input type="checkbox" name="sort" value="price-desc"><i
+                        class="opt-box"></i>价格由高到低</label>
+                <label class="opt"><input type="checkbox" name="sort" value="deposit"><i class="opt-box"></i>免押金</label>
+                <label class="opt"><input type="checkbox" name="sort" value="worry"><i class="opt-box"></i>无忧租赁</label>
+                <label class="opt"><input type="checkbox" name="sort" value="gear"><i class="opt-box"></i>自动挡</label>
+            </div>
+        </div>
+
+        <!-- 在售车型列表 -->
+        <div class="car-list">
+            <div class="section-head intl-list-head">
+                <span class="section-icon">›</span>
+                <h2 class="section-title">在售车型</h2>
+                <span class="section-rule"></span>
+                <span class="section-tag">LIVE INVENTORY · 6 UNITS</span>
+            </div>
+
+            <!-- 在售车型列表：唯一数据源 js/cars-data.js，由 js/fleet-render.js 在此原位渲染 -->
+            <script src="./js/fleet-render.js"></script>
+
+            <div class="fleet-empty" hidden>当前筛选条件下暂无在售车辆，请调整车型、座位或品牌。</div>
+        </div>
+
+        <!-- 页脚（含跑马灯）：共享区块，由 js/shell.js 在此原位渲染 -->
+        <script src="./js/shell.js" data-shell="footer"></script>
+
+    </div><!-- /site-shell -->
+
+</body>
+
+</html>

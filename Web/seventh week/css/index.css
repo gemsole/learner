@@ -1,0 +1,1297 @@
+/* ==================================================================
+   卡卡租车 · 未来感改版
+   设计方向：把租车页面做成一块「车队控制台」——
+   雾银纸面 + 深空墨色仪表区 + 电光钴蓝信号色，
+   细线网格、切角按钮、左对齐的技术排版，代替原有的圆角卡片与金色。
+   ================================================================== */
+
+:root {
+    /* 纸面 */
+    --paper: #e8edf3;
+    --paper-hi: #f9fbfd;
+    /* 墨色 */
+    --ink: #070c14;
+    --ink-2: #0c1420;
+    --ink-3: #131d2c;
+    /* 线与字 */
+    --line: rgba(9, 16, 27, 0.14);
+    --line-strong: rgba(9, 16, 27, 0.26);
+    --line-dark: rgba(255, 255, 255, 0.14);
+    --text: #0b1220;
+    --muted: #5b697c;
+    --muted-2: #7d8b9d;
+    --muted-dark: #8ea2ba;
+    /* 信号色：只保留一个电光钴蓝，少量青色只用于细线发光 */
+    --accent: #2b57ff;
+    --accent-hi: #4d74ff;
+    --signal: #6fe3ff;
+
+    --font-cn: "HarmonyOS Sans SC", "MiSans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-tech: "Bahnschrift", "DIN Alternate", "Segoe UI", var(--font-cn);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-cn);
+    color: var(--text);
+    /* 沉浸式背景：黄昏沿海公路整幅铺底并固定，压一层暗色渐变保证前景对比 */
+    background-color: var(--ink);
+    background-image: linear-gradient(180deg, rgba(7, 12, 20, 0.4), rgba(7, 12, 20, 0.58)), url("../images/site-bg_1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:focus-visible,
+label:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+::selection {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+/* ==================== 头部：深色仪表条 ==================== */
+
+.head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 86px;
+    padding: 0 clamp(24px, 6.7vw, 129px);
+    /* 半透墨色 + 毛玻璃：固定铺底的黄昏背景从导航条后透出 */
+    background-color: rgba(7, 12, 20, 0.75);
+    backdrop-filter: blur(16px) saturate(1.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+}
+
+/* 底部一条钴蓝细线，两端渐隐，像仪表的基准线 */
+.head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-image: linear-gradient(90deg, rgba(43, 87, 255, 0), rgba(43, 87, 255, 0.9), rgba(111, 227, 255, 0), rgba(43, 87, 255, 0));
+    pointer-events: none;
+}
+
+/* logo：两行文字，英文白色、中文青色并拉开字距 */
+.head .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.head .logo .logo-en {
+    font-family: var(--font-tech);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    line-height: 1;
+    color: #ffffff;
+}
+
+.head .logo .logo-cn {
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 7px;
+    line-height: 1;
+    color: var(--signal);
+}
+
+/* 导航 */
+.head .nav {
+    min-width: 0;
+}
+
+.head .nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: clamp(20px, 2.6vw, 46px);
+}
+
+.head .nav ul li {
+    position: relative;
+    padding: 6px 0;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    color: var(--muted-dark);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.head .nav ul li a {
+    color: inherit;
+}
+
+/* 悬停 / 选中：白色文字 + 钴蓝扫描线 */
+.head .nav ul li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    box-shadow: 0 0 10px rgba(43, 87, 255, 0.9);
+    transition: width 0.3s ease;
+}
+
+.head .nav ul li:hover,
+.head .nav ul li.active {
+    color: #ffffff;
+}
+
+.head .nav ul li:hover::after,
+.head .nav ul li.active::after {
+    width: 100%;
+}
+
+/* 登录 / 注册 */
+.head .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+}
+
+/* 切角按钮：左上与右下各削一刀，替代圆角药丸 */
+.head .login .btn {
+    display: inline-block;
+    min-width: 118px;
+    height: 38px;
+    padding: 0 20px;
+    line-height: 38px;
+    background-color: var(--accent);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.head .login .btn:hover {
+    background-color: var(--accent-hi);
+    transform: translateY(-1px);
+}
+
+.head .login .phone {
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #b9c7d9;
+}
+
+@media (max-width: 768px) {
+    .head {
+        position: relative;
+        height: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 12px;
+        padding: 16px;
+    }
+
+    .head .logo,
+    .head .nav,
+    .head .login {
+        width: 100%;
+    }
+
+    .head .logo {
+        align-items: center;
+    }
+
+    .head .logo .logo-en {
+        font-size: 17px;
+        letter-spacing: 4px;
+    }
+
+    .head .logo .logo-cn {
+        margin-top: 5px;
+        font-size: 10px;
+        letter-spacing: 5px;
+    }
+
+    .head .nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 18px;
+    }
+
+    .head .nav ul li {
+        font-size: 13px;
+        padding: 4px 0;
+    }
+
+    .head .login {
+        flex-direction: row;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .head .login .btn {
+        min-width: 104px;
+        height: 34px;
+        padding: 0 16px;
+        line-height: 34px;
+        font-size: 13px;
+    }
+
+    .head .login .phone {
+        font-size: 14px;
+    }
+}
+
+/* ==================== 首屏：深色视窗 + 技术网格 ==================== */
+
+.banner {
+    position: relative;
+    overflow: hidden;
+    padding: 0 clamp(24px, 6.7vw, 129px) clamp(72px, 6vw, 104px);
+    background-color: var(--ink);
+}
+
+/* 网格底纹：只在首屏出现，向下渐隐 */
+.banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 88%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 88%);
+    pointer-events: none;
+}
+
+/* 载入时横扫一次的信号线，是全页唯一主动播放的装饰 */
+.banner::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background-image: linear-gradient(90deg, rgba(111, 227, 255, 0), rgba(111, 227, 255, 0.85), rgba(43, 87, 255, 0));
+    animation: signal-sweep 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    pointer-events: none;
+}
+
+@keyframes signal-sweep {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(560px);
+        opacity: 0;
+    }
+}
+
+/* 轮播视窗 */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1160px;
+    height: clamp(360px, 42vw, 500px);
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: var(--ink-2);
+    border: 1px solid var(--line-dark);
+    border-radius: 2px;
+}
+
+/* 隐藏的单选框：只用来记录当前显示第几张 */
+.carousel > input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 底部压深，保证叠加文案在任何车图上都能读清 */
+.carousel::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 70%;
+    background-image: linear-gradient(to top,
+            rgba(3, 7, 13, 0.96) 0%,
+            rgba(3, 7, 13, 0.72) 40%,
+            rgba(3, 7, 13, 0.18) 72%,
+            rgba(3, 7, 13, 0) 100%);
+    pointer-events: none;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    animation: carousel-auto 9s ease-in-out infinite;
+}
+
+/* 每张停留 2.5 秒、滑动 0.5 秒，第 3 张播完回到第 1 张 */
+@keyframes carousel-auto {
+    0% {
+        transform: translateX(0);
+    }
+
+    27.78% {
+        transform: translateX(0);
+    }
+
+    33.33% {
+        transform: translateX(-100%);
+    }
+
+    61.11% {
+        transform: translateX(-100%);
+    }
+
+    66.67% {
+        transform: translateX(-200%);
+    }
+
+    94.44% {
+        transform: translateX(-200%);
+    }
+
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.carousel-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.05);
+}
+
+/* 悬停暂停；手动切换靠挪 animation-delay，不会跳回第一张 */
+.carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+#car-2:checked ~ .carousel-track {
+    animation-delay: -3s;
+}
+
+#car-3:checked ~ .carousel-track {
+    animation-delay: -6s;
+}
+
+/* 左右切换：方形切角按钮，默认隐藏 */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(6, 11, 19, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease,
+        border-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-btn::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.carousel-prev {
+    left: 20px;
+}
+
+.carousel-prev::before {
+    transform: translateX(3px) rotate(45deg);
+}
+
+.carousel-next {
+    right: 20px;
+}
+
+.carousel-next::before {
+    transform: translateX(-3px) rotate(-135deg);
+}
+
+.carousel:hover #car-1:checked ~ .s1,
+.carousel:hover #car-2:checked ~ .s2,
+.carousel:hover #car-3:checked ~ .s3 {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.carousel-btn:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.06);
+}
+
+/* 指示器：改到右下角，三条横向刻度 */
+.carousel-dots {
+    position: absolute;
+    right: clamp(20px, 3.4vw, 48px);
+    bottom: clamp(22px, 2.6vw, 32px);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carousel-dot {
+    width: 22px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.32);
+    animation: carousel-dot 9s infinite;
+}
+
+.carousel-dot:nth-child(2) {
+    animation-delay: 3s;
+}
+
+.carousel-dot:nth-child(3) {
+    animation-delay: 6s;
+}
+
+@keyframes carousel-dot {
+    0%,
+    27.78% {
+        width: 42px;
+        background-color: var(--accent);
+        box-shadow: 0 0 12px rgba(43, 87, 255, 0.9);
+    }
+
+    33.33%,
+    100% {
+        width: 22px;
+        background-color: rgba(255, 255, 255, 0.32);
+        box-shadow: none;
+    }
+}
+
+/* 手动换图后，高亮刻度跟着相位偏移，始终与画面一致 */
+#car-2:checked ~ .carousel-dots .carousel-dot:nth-child(1) {
+    animation-delay: -3s;
+}
+
+#car-2:checked ~ .carousel-dots .carousel-dot:nth-child(2) {
+    animation-delay: 0s;
+}
+
+#car-2:checked ~ .carousel-dots .carousel-dot:nth-child(3) {
+    animation-delay: 3s;
+}
+
+#car-3:checked ~ .carousel-dots .carousel-dot:nth-child(1) {
+    animation-delay: -6s;
+}
+
+#car-3:checked ~ .carousel-dots .carousel-dot:nth-child(2) {
+    animation-delay: -3s;
+}
+
+#car-3:checked ~ .carousel-dots .carousel-dot:nth-child(3) {
+    animation-delay: 0s;
+}
+
+.carousel:hover .carousel-dot {
+    animation-play-state: paused;
+}
+
+/* 首屏文案：左下角，整页唯一的大字 */
+.carousel-hud {
+    position: absolute;
+    left: clamp(20px, 3.4vw, 48px);
+    bottom: clamp(24px, 3.2vw, 44px);
+    z-index: 3;
+    max-width: 560px;
+    animation: hud-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes hud-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-hud .hud-title {
+    font-size: clamp(24px, 3.4vw, 46px);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    line-height: 1.16;
+    color: #ffffff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+.carousel-hud .hud-sub {
+    margin-top: 12px;
+    font-size: clamp(12px, 1.05vw, 14px);
+    letter-spacing: 0.6px;
+    line-height: 1.7;
+    color: #c9d7e8;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* 首屏主按钮：白底切角，与头部的钴蓝按钮形成一深一浅的对照 */
+.carousel-hud .hud-cta {
+    display: inline-block;
+    margin-top: 22px;
+    height: 42px;
+    padding: 0 24px;
+    line-height: 42px;
+    background-color: #ffffff;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-hud .hud-cta:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .banner {
+        padding: 0 16px 48px;
+    }
+
+    .carousel {
+        height: 300px;
+    }
+
+    .carousel-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .carousel-btn::before {
+        width: 7px;
+        height: 7px;
+    }
+
+    .carousel-prev {
+        left: 10px;
+    }
+
+    .carousel-next {
+        right: 10px;
+    }
+
+    .carousel-hud {
+        left: 18px;
+        right: 18px;
+        bottom: 22px;
+    }
+
+    .carousel-hud .hud-sub {
+        max-width: 88%;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .carousel-hud .hud-cta {
+        margin-top: 16px;
+        height: 36px;
+        padding: 0 18px;
+        line-height: 36px;
+        font-size: 12px;
+    }
+
+    .carousel-dots {
+        right: 16px;
+        bottom: 16px;
+        gap: 6px;
+    }
+
+    .carousel-dot {
+        width: 16px;
+    }
+
+    @keyframes carousel-dot {
+        0%,
+        27.78% {
+            width: 28px;
+            background-color: var(--accent);
+        }
+
+        33.33%,
+        100% {
+            width: 16px;
+            background-color: rgba(255, 255, 255, 0.32);
+        }
+    }
+}
+
+/* ==================== 服务模式：三块浅色面板压在首屏下沿 ==================== */
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1160px;
+    /* 上移压住首屏边缘，形成仪表盘与纸面的层叠关系 */
+    margin: clamp(-56px, -4.5vw, -40px) auto 0;
+    padding: 0 16px clamp(64px, 6vw, 96px);
+}
+
+.service-card {
+    position: relative;
+    display: block;
+    padding: 26px 24px 24px;
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 44px rgba(7, 14, 28, 0.12);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    /* 载入时三卡错落浮起，接力首屏的 hud-in 动画 */
+    animation: service-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.service-card:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.service-card:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+@keyframes service-rise {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 左侧竖线是这组卡片的统一信号标记 */
+.service-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.service-card:hover {
+    background-color: var(--ink);
+    border-color: var(--ink);
+    transform: translateY(-4px);
+    box-shadow: 0 26px 52px rgba(7, 14, 28, 0.22);
+}
+
+.service-card:hover::before {
+    width: 5px;
+}
+
+.service-inner {
+    display: block;
+}
+
+.service-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.service-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+.service-card:hover .service-title {
+    color: #ffffff;
+}
+
+/* 方形箭头块 */
+.service-go {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--accent);
+    color: #ffffff;
+    font-family: var(--font-tech);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.service-card:hover .service-go {
+    background-color: var(--signal);
+    color: var(--ink);
+    transform: translateX(4px);
+}
+
+.service-sub {
+    display: block;
+    margin-top: 12px;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    transition: color 0.3s ease;
+}
+
+.service-card:hover .service-sub {
+    color: var(--muted-dark);
+}
+
+/* ==================== 热门车型：车队登记册 ==================== */
+
+.hot-cars {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 16px clamp(64px, 6vw, 96px);
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+/* 标题右侧拉一条渐隐细线，把标题与技术标注连成一体 */
+.section-rule {
+    flex: 1;
+    height: 1px;
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+}
+
+/* 线尾的英文技术标注：登记册编号，控制台气质的点睛处 */
+.section-tag {
+    flex-shrink: 0;
+    font-family: var(--font-tech);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2.5px;
+    color: rgba(255, 255, 255, 0.66);
+    text-shadow: 0 1px 8px rgba(3, 10, 22, 0.5);
+    white-space: nowrap;
+}
+
+.section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    color: var(--accent);
+    font-family: var(--font-tech);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* 区块标题直接落在背景照片上：白字加投影保证可读 */
+.section-title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #ffffff;
+    text-shadow: 0 2px 14px rgba(3, 10, 22, 0.55);
+}
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    list-style: none;
+}
+
+.car-card {
+    position: relative;
+    display: block;
+    height: 100%;
+    background-color: #ffffff;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 卡片顶部一条钴蓝线，悬停时从左向右铺满 */
+.car-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(43, 87, 255, 0.5);
+    box-shadow: 0 22px 44px rgba(9, 18, 36, 0.16);
+}
+
+.car-card:hover::before {
+    transform: scaleX(1);
+}
+
+.car-pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 148px;
+    background-color: #eef2f7;
+    overflow: hidden;
+}
+
+.car-pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.car-card:hover .car-pic img {
+    transform: scale(1.05);
+    filter: saturate(1.05);
+}
+
+.car-name {
+    display: block;
+    margin: 14px 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 价格：钴蓝数字，不再用橙色胶囊 */
+.car-price {
+    display: block;
+    margin: 8px 14px 0;
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+}
+
+/* ¥ 符号小一号压在数字前，价格读起来更像仪表读数 */
+.car-price::before {
+    content: "¥";
+    margin-right: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    vertical-align: 2px;
+    color: var(--muted);
+}
+
+.car-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 14px 0;
+}
+
+.car-specs span {
+    display: inline-block;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    font-size: 11.5px;
+    letter-spacing: 0.4px;
+    color: #55647a;
+}
+
+.car-note {
+    display: block;
+    margin: 10px 14px 16px;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    color: var(--muted-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 1200px) {
+    .car-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .car-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .services {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: -32px;
+        padding: 0 16px 48px;
+    }
+
+    .service-card {
+        padding: 20px 20px 18px;
+    }
+
+    .hot-cars {
+        padding: 0 16px 48px;
+    }
+
+    .section-head {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .car-pic {
+        height: 118px;
+    }
+
+    .car-name {
+        margin: 12px 12px 0;
+        font-size: 13px;
+    }
+
+    .car-price {
+        margin: 6px 12px 0;
+        font-size: 15px;
+    }
+
+    .car-specs {
+        margin: 8px 12px 0;
+        gap: 5px;
+    }
+
+    .car-note {
+        margin: 8px 12px 14px;
+    }
+}
+
+/* ==================== 页脚：深色控制面板 ==================== */
+
+.foot {
+    position: relative;
+    width: 100%;
+    background-color: var(--ink);
+}
+
+/* 顶部一条钴蓝到青色的渐变线，与头部呼应 */
+.foot::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background-image: linear-gradient(90deg, rgba(43, 87, 255, 0), rgba(43, 87, 255, 0.9), rgba(111, 227, 255, 0.7), rgba(43, 87, 255, 0));
+}
+
+/* 调度信息流：页脚顶部的横向滚动播报，车队控制台的「活体」细节 */
+.ticker {
+    overflow: hidden;
+    background-color: #0b111d;
+    border-bottom: 1px solid var(--line-dark);
+}
+
+.ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 36s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+.ticker-group {
+    display: flex;
+    flex-shrink: 0;
+    padding: 10px 32px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted-dark);
+    white-space: nowrap;
+}
+
+.ticker-group span::before {
+    content: "·";
+    margin-right: 12px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+@keyframes ticker-scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+        animation: none;
+    }
+}
+
+.foot-inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(48px, 4.6vw, 72px) 16px clamp(36px, 4vw, 56px);
+}
+
+.foot-title {
+    position: relative;
+    margin-bottom: clamp(18px, 2vw, 26px);
+    padding-left: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+/* 标题前的钴蓝信号竖条，与正文区的标签语言一致 */
+.foot-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 12px;
+    background-color: var(--accent);
+    transform: translateY(-50%);
+}
+
+.foot-links {
+    list-style: none;
+}
+
+.foot-links li a {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--muted-dark);
+    transition: color 0.3s ease;
+}
+
+.foot-links li a:hover {
+    color: var(--signal);
+}
+
+.foot-qr img {
+    display: block;
+    width: 120px;
+    height: 120px;
+    padding: 6px;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+/* 页脚底条：版权信息 + 技术读数，把深色面板收口 */
+.foot-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 18px 16px 22px;
+    border-top: 1px solid var(--line-dark);
+}
+
+.foot-bottom p {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted-dark);
+}
+
+.foot-sys {
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(142, 162, 186, 0.72);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .foot-bottom {
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px 16px 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 992px) {
+    .foot-inner {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .foot-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+        padding: 36px 16px 32px;
+    }
+
+    .foot-title {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .foot-links li a {
+        padding: 5px 0;
+        font-size: 12.5px;
+    }
+
+    .foot-qr img {
+        width: 104px;
+        height: 104px;
+    }
+}
+
+/* ==================== 动效偏好 ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .carousel-track,
+    .carousel-dot {
+        animation: none !important;
+    }
+
+    .banner::after {
+        animation: none !important;
+        opacity: 0;
+    }
+
+    .carousel-hud {
+        animation: none !important;
+    }
+
+    .car-card:hover,
+    .service-card:hover,
+    .head .login .btn:hover,
+    .carousel-hud .hud-cta:hover,
+    .service-card:hover .service-go {
+        transform: none;
+    }
+
+    .service-card {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: orange;
+
+
+
+            /* 要过渡哪些属性 */
+            transition-property: transform, background-color;
+            /* 持续时间 */
+            transition-duration: 0.4s;
+            /* 速度曲线 */
+            transition-timing-function: ease-in-out;
+            /* 延迟 */
+            transition-delay: 0.1s;
+
+            transition: transform 0.4s ease-in-out 0.1s, background-color 0.4s ease-in-out 0.1s;
+
+        }
+
+        .box:hover {
+            transform: scale(1.2);
+            background: #42b983;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+
+</html>

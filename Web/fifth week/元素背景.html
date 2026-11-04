@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>background属性演示</title>
+    <style>
+        .demo{
+            width:500px;
+            height:300px;
+            border:2px solid #333;
+            margin:30px auto;
+            /* 分开写版本 */
+            background-color: #eee;
+            background-image: url("https://picsum.photos/id/10/200/200");
+            background-repeat: repeat;
+            background-position: center;
+            background-size: contain;
+            background-attachment: scroll;
+        }
+        .demo2{
+            width:500px;
+            height:300px;
+            border:2px solid #333;
+            margin:30px auto;
+            /* 简写一行写法 */
+            background: #eef url("https://picsum.photos/id/10/200/200") no-repeat right top / cover;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="text-align:center;">分开书写background属性</h3>
+    <div class="demo"></div>
+    <h3 style="text-align:center;">background简写组合写法</h3>
+    <div class="demo2"></div>
+    <div style="height:1000px;"></div>
+</body>
+</html>

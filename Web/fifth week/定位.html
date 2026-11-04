@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS定位演示 relative absolute fixed</title>
+    <style>
+        .tip {
+            width: 600px;
+            margin: 10px auto;
+        }
+
+        .wrap{
+            width: 600px;
+            height: 400px;
+            border:2px solid #333;
+            margin:30px auto;
+            /* 父盒子设置relative，作为子absolute的参照物 */
+            position: relative;
+            background-color: #f3f4f6;
+        }
+
+
+        .box{
+            width:100px;
+            height:100px;
+            background:#4285F4;
+            color:#fff;
+            text-align:center;
+            line-height:100px;
+        }
+
+        /* 相对定位 */
+        .relative-demo{
+            position: relative;
+            top:20px;
+            left:30px;
+            background:#22a75d;
+        }
+
+
+        /* 绝对定位：父元素wrap是relative，以wrap盒子为基准 */
+        .absolute-demo{
+            position: absolute;
+            bottom:20px;
+            right:20px;
+            background:#ea4335;
+        }
+
+
+        /* 固定定位，以浏览器窗口为基准 */
+        .fixed-demo{
+            position: fixed;
+            bottom:30px;
+            right:30px;
+            width:80px;
+            height:80px;
+            background:#ff9800;
+            border-radius:50%;
+            z-index:999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tip">
+        <p>绿色：relative相对定位，自身原位置保留，只是偏移</p>
+        <p>红色：absolute绝对定位，以父盒子(wrap)为基准，脱离文档流</p>
+        <p>橙色圆形：fixed固定定位，右下角悬浮，滚动页面位置不变</p>
+    </div>
+
+    <div class="wrap">
+        <div class="box">普通static</div>
+        <div class="box relative-demo">relative</div>
+        <div class="box absolute-demo">absolute</div>
+    </div>
+
+    <div class="fixed-demo">fixed</div>
+
+    <!-- 增加高度方便滚动查看fixed效果 -->
+    <div style="height:1200px;"></div>
+</body>
+
+</html>

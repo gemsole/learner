@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>悦行网</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/site-shell.css">
+    <script src="./js/config.js"></script>
+    <script src="./js/ripple.js" defer></script>
+    <script src="./js/click-fx.js" defer></script>
+</head>
+
+<body>
+
+    <!-- 头部导航：共享区块，由 js/shell.js 在此原位渲染（active 按当前页自动判定） -->
+    <script src="./js/shell.js" data-shell="header"></script>
+
+    <div class="site-shell">
+
+        <!-- 轮播图：纯 CSS 实现（隐藏 radio 记录当前张数，label 做左右按钮） -->
+        <div class="banner">
+            <div class="carousel">
+                <!-- 三个隐藏单选框，第 1 个默认选中 -->
+                <input type="radio" name="carousel" id="car-1" checked>
+                <input type="radio" name="carousel" id="car-2">
+                <input type="radio" name="carousel" id="car-3">
+
+                <div class="carousel-track">
+                    <div class="carousel-item"><img src="https://i.postimg.cc/mgBLxYwH/images2.jpg" alt="车型一"></div>
+                    <div class="carousel-item"><img src="https://i.postimg.cc/52b4cB35/images4.jpg" alt="车型二"></div>
+                    <div class="carousel-item"><img src="https://i.postimg.cc/DyqvYj1C/images5.png" alt="车型三"></div>
+                </div>
+
+                <!-- 上一张：与当前状态配对，实现首尾循环 -->
+                <label class="carousel-btn carousel-prev s1" for="car-3" title="上一张"></label>
+                <label class="carousel-btn carousel-prev s2" for="car-1" title="上一张"></label>
+                <label class="carousel-btn carousel-prev s3" for="car-2" title="上一张"></label>
+
+                <!-- 下一张 -->
+                <label class="carousel-btn carousel-next s1" for="car-2" title="下一张"></label>
+                <label class="carousel-btn carousel-next s2" for="car-3" title="下一张"></label>
+                <label class="carousel-btn carousel-next s3" for="car-1" title="下一张"></label>
+
+                <!-- 指示器：右下角三条刻度 -->
+                <div class="carousel-dots">
+                    <span class="carousel-dot"></span>
+                    <span class="carousel-dot"></span>
+                    <span class="carousel-dot"></span>
+                </div>
+
+                <!-- 首屏文案：叠加在视窗左下角 -->
+                <div class="carousel-hud">
+                    <h1 class="hud-title">下一程，从现在启动</h1>
+                    <p class="hud-sub">覆盖 96 座城市，24 小时取还，300 多款车型随时待命。</p>
+                    <a href="#fleet" class="hud-cta">查看可租车型</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 服务入口：三块面板压在首屏下沿 -->
+        <div class="services">
+            <a href="#" class="service-card">
+                <span class="service-inner">
+                    <span class="service-line">
+                        <span class="service-title">短租自驾</span>
+                        <span class="service-go">&gt;&gt;</span>
+                    </span>
+                    <span class="service-sub">24小时轻松取/还车</span>
+                </span>
+            </a>
+            <a href="#" class="service-card">
+                <span class="service-inner">
+                    <span class="service-line">
+                        <span class="service-title">长租服务</span>
+                        <span class="service-go">&gt;&gt;</span>
+                    </span>
+                    <span class="service-sub">月付套餐，专属顾问跟进</span>
+                </span>
+            </a>
+            <a href="#" class="service-card">
+                <span class="service-inner">
+                    <span class="service-line">
+                        <span class="service-title">企业租车</span>
+                        <span class="service-go">&gt;&gt;</span>
+                    </span>
+                    <span class="service-sub">对公结算，车队统一管理</span>
+                </span>
+            </a>
+        </div>
+
+        <!-- 热门车型：四排五列共 20 张卡片，整块居中 -->
+        <div class="hot-cars" id="fleet">
+            <div class="section-head">
+                <span class="section-icon">›</span>
+                <h2 class="section-title">热门车型</h2>
+                <span class="section-rule"></span>
+                <span class="section-tag">FLEET REGISTER · 20 UNITS</span>
+            </div>
+            <ul class="car-grid">
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Audi%20A6L%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="奥迪A6L" loading="lazy"></span>
+                        <span class="car-name">小型轿车 | 奥迪A6L</span>
+                        <span class="car-price">317/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.4L</span></span>
+                        <span class="car-note">空间较大，乘坐舒适</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Volkswagen%20Lavida%20compact%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="大众朗逸" loading="lazy"></span>
+                        <span class="car-name">经济轿车 | 大众朗逸</span>
+                        <span class="car-price">128/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.5L</span></span>
+                        <span class="car-note">油耗低，代步首选</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Haval%20H6%20compact%20SUV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="哈弗H6" loading="lazy"></span>
+                        <span class="car-name">紧凑SUV | 哈弗H6</span>
+                        <span class="car-price">189/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">视野开阔，通过性强</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=BMW%205%20Series%20luxury%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="宝马5系" loading="lazy"></span>
+                        <span class="car-name">豪华轿车 | 宝马5系</span>
+                        <span class="car-price">528/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">商务出行，尊贵体验</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Audi%20TT%20sports%20coupe%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="奥迪TT" loading="lazy"></span>
+                        <span class="car-name">时尚轿跑 | 奥迪TT</span>
+                        <span class="car-price">466/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">动感造型，驾驭激情</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tesla%20Model%203%20electric%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="特斯拉Model 3" loading="lazy"></span>
+                        <span class="car-name">新能源 | 特斯拉Model 3</span>
+                        <span class="car-price">358/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>纯电</span></span>
+                        <span class="car-note">静谧平顺，智能驾驶</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Buick%20GL8%20business%20MPV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="别克GL8" loading="lazy"></span>
+                        <span class="car-name">商务MPV | 别克GL8</span>
+                        <span class="car-price">458/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">宽敞七座，接待首选</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Toyota%20Corolla%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="丰田卡罗拉" loading="lazy"></span>
+                        <span class="car-name">家轿 | 丰田卡罗拉</span>
+                        <span class="car-price">138/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.2T</span></span>
+                        <span class="car-note">皮实耐用，省心之选</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Honda%20CR-V%20SUV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="本田CR-V" loading="lazy"></span>
+                        <span class="car-name">城市SUV | 本田CR-V</span>
+                        <span class="car-price">218/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.5T</span></span>
+                        <span class="car-note">空间灵活，全家出行</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Audi%20Q5L%20luxury%20SUV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="奥迪Q5L" loading="lazy"></span>
+                        <span class="car-name">豪华SUV | 奥迪Q5L</span>
+                        <span class="car-price">498/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">四驱护航，畅行无忧</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cadillac%20CT5%20sport%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="凯迪拉克CT5" loading="lazy"></span>
+                        <span class="car-name">运动轿车 | 凯迪拉克CT5</span>
+                        <span class="car-price">328/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">澎湃动力，操控精准</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Volkswagen%20Polo%20hatchback%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="大众Polo" loading="lazy"></span>
+                        <span class="car-name">小型车 | 大众Polo</span>
+                        <span class="car-price">98/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.5L</span></span>
+                        <span class="car-note">灵活好停，新手友好</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Toyota%20Camry%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="丰田凯美瑞" loading="lazy"></span>
+                        <span class="car-name">中型轿车 | 丰田凯美瑞</span>
+                        <span class="car-price">248/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0L</span></span>
+                        <span class="car-note">舒适安静，长途利器</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Toyota%20Land%20Cruiser%20Prado%20off-road%20SUV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="丰田普拉多" loading="lazy"></span>
+                        <span class="car-name">越野SUV | 丰田普拉多</span>
+                        <span class="car-price">688/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>3.5L</span></span>
+                        <span class="car-note">强劲四驱，越野王者</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=BYD%20Han%20EV%20electric%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="比亚迪汉EV" loading="lazy"></span>
+                        <span class="car-name">新能源 | 比亚迪汉EV</span>
+                        <span class="car-price">336/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>纯电</span></span>
+                        <span class="car-note">超长续航，高颜值</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=MINI%20Cooper%20small%20car%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="MINI COOPER" loading="lazy"></span>
+                        <span class="car-name">个性小车 | MINI COOPER</span>
+                        <span class="car-price">288/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>1.5T</span></span>
+                        <span class="car-note">经典造型，潮流出街</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Mercedes-Benz%20E-Class%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="奔驰E级" loading="lazy"></span>
+                        <span class="car-name">豪华轿车 | 奔驰E级</span>
+                        <span class="car-price">568/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">内饰精致，质感出众</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=GAC%20Trumpchi%20M8%20MPV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="传祺M8" loading="lazy"></span>
+                        <span class="car-name">家用MPV | 传祺M8</span>
+                        <span class="car-price">388/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">大七座，多人出行</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tank%20300%20boxy%20off-road%20SUV%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="坦克300" loading="lazy"></span>
+                        <span class="car-name">硬派SUV | 坦克300</span>
+                        <span class="car-price">428/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0T</span></span>
+                        <span class="car-note">硬朗造型，全地形适应</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="car-card">
+                        <span class="car-pic"><img
+                                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Nissan%20Altima%20sedan%2C%20studio%20photo%2C%20three-quarter%20front%20view%2C%20light%20gray%20background%2C%20soft%20lighting%2C%20high%20detail&image_size=landscape_4_3"
+                                alt="日产天籁" loading="lazy"></span>
+                        <span class="car-name">舒适轿车 | 日产天籁</span>
+                        <span class="car-price">228/天</span>
+                        <span class="car-specs"><span>自动挡</span><span>2.0L</span></span>
+                        <span class="car-note">座椅舒适，静谧宜居</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 页脚（含跑马灯）：共享区块，由 js/shell.js 在此原位渲染 -->
+        <script src="./js/shell.js" data-shell="footer"></script>
+
+    </div><!-- /site-shell -->
+</body>
+
+</html>

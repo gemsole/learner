@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>卡卡租车</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+    <div class="head">
+        <div class="logo">
+            <img src="./logo.png" alt="卡卡租车">
+        </div>
+        <div class="nav">
+            <ul>
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#">国际租车</a></li>
+                <li><a href="#">闪租</a></li>
+                <li><a href="#">服务项目</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </div>
+        <div class="login">
+            <a href="#" class="btn">登录 / 注册</a>
+            <span class="phone">400-888-8888</span>
+        </div>
+    </div>
+
+    <!-- 轮播图：纯 CSS 实现（隐藏 radio 记录当前张数，label 做左右按钮） -->
+    <div class="banner">
+        <div class="carousel">
+            <!-- 三个隐藏单选框，第 1 个默认选中 -->
+            <input type="radio" name="carousel" id="car-1" checked>
+            <input type="radio" name="carousel" id="car-2">
+            <input type="radio" name="carousel" id="car-3">
+
+            <div class="carousel-track">
+                <div class="carousel-item"><img src="https://i.postimg.cc/mgBLxYwH/images2.jpg" alt="车型一"></div>
+                <div class="carousel-item"><img src="https://i.postimg.cc/52b4cB35/images4.jpg" alt="车型二"></div>
+                <div class="carousel-item"><img src="https://i.postimg.cc/DyqvYj1C/images5.png" alt="车型三"></div>
+            </div>
+
+            <!-- 上一张：与当前状态配对，实现首尾循环 -->
+            <label class="carousel-btn carousel-prev s1" for="car-3" title="上一张"></label>
+            <label class="carousel-btn carousel-prev s2" for="car-1" title="上一张"></label>
+            <label class="carousel-btn carousel-prev s3" for="car-2" title="上一张"></label>
+
+            <!-- 下一张 -->
+            <label class="carousel-btn carousel-next s1" for="car-2" title="下一张"></label>
+            <label class="carousel-btn carousel-next s2" for="car-3" title="下一张"></label>
+            <label class="carousel-btn carousel-next s3" for="car-1" title="下一张"></label>
+
+            <!-- 指示器：居中显示在轮播图正下方 -->
+            <div class="carousel-dots">
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

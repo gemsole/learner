@@ -1,0 +1,879 @@
+/* ==================================================================
+   国际租车页
+   沿用首页的「车队控制台」语言：深空墨首屏、雾银纸面、电光钴蓝。
+   这一页只新增两件事——整幅公路首屏，以及一块取还车控制台。
+   ================================================================== */
+
+/* 英文副标题字体：HFPoet 手写书法体，字体文件在 fonts 目录 */
+@font-face {
+    font-family: "HFPoet";
+    src: url("../fonts/HFPoet.woff") format("woff"),
+        url("../fonts/HFPoet.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==================== 首屏：公路视窗 ==================== */
+
+.intl-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(430px, 48vw, 600px);
+    padding: 0 24px clamp(96px, 8vw, 132px);
+    background-color: var(--ink);
+}
+
+/* 原图是一张 310 宽的插画，放大后难免发虚，用压暗和轻微模糊统一成背景质感 */
+.intl-hero::before {
+    content: "";
+    position: absolute;
+    inset: -2%;
+    background-image: url("../images/1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(0.6px) saturate(1.05) contrast(1.03);
+    transform: scale(1.02);
+}
+
+/* 深色压层 + 技术网格，与首页首屏保持同一套底纹 */
+.intl-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(180deg,
+            rgba(7, 12, 20, 0.7) 0%,
+            rgba(7, 12, 20, 0.32) 38%,
+            rgba(7, 12, 20, 0.82) 84%,
+            rgba(7, 12, 20, 1) 100%),
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: auto, 64px 64px, 64px 64px;
+    pointer-events: none;
+}
+
+.intl-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    text-align: center;
+    animation: intl-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes intl-rise {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 主标题：行楷笔意，四个字高低错落，像随手落笔而非排字 */
+.intl-title {
+    position: relative;
+    display: inline-block;
+    font-family: "STXingkai", "华文行楷", "Kaiti SC", "STKaiti", "华文楷体", "KaiTi", "楷体", "Noto Serif SC", serif;
+    font-size: clamp(44px, 5.2vw, 68px);
+    font-weight: 400;
+    line-height: 1.2;
+    /* 加大字距，让四个字铺开；左侧补同宽留白保持视觉居中 */
+    letter-spacing: 0.26em;
+    padding-left: 0.26em;
+    color: #ffffff;
+    text-shadow: 0 6px 30px rgba(3, 10, 22, 0.55);
+}
+
+/* 每字一个极小的偏移与倾角，形成手写的松弛感 */
+.intl-title-char {
+    display: inline-block;
+}
+
+.intl-title-char:nth-child(1) {
+    transform: translateY(-0.05em) rotate(-3deg);
+}
+
+.intl-title-char:nth-child(2) {
+    transform: translateY(0.03em) rotate(1.6deg);
+}
+
+.intl-title-char:nth-child(3) {
+    transform: translateY(-0.02em) rotate(-1.4deg);
+}
+
+.intl-title-char:nth-child(4) {
+    transform: translateY(0.04em) rotate(2.6deg);
+}
+
+/* 一笔扫过的墨痕，收住四个字的势 */
+.intl-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.14em;
+    width: 78%;
+    height: 0.13em;
+    border-radius: 999px;
+    background-image: linear-gradient(90deg,
+            rgba(207, 227, 245, 0) 0%,
+            rgba(226, 240, 252, 0.95) 24%,
+            rgba(168, 205, 240, 1) 58%,
+            rgba(207, 227, 245, 0.6) 86%,
+            rgba(207, 227, 245, 0) 100%);
+    box-shadow: 0 0 18px rgba(146, 190, 230, 0.45);
+    transform: translateX(-50%) rotate(-1.4deg);
+    pointer-events: none;
+}
+
+/* 英文用 HFPoet 手写体，与中文行楷同一笔意；字体自带宽斜，不再叠加斜体 */
+.intl-script {
+    margin-top: 16px;
+    font-family: "HFPoet", "Segoe Script", Georgia, "Times New Roman", serif;
+    font-style: normal;
+    font-size: clamp(21px, 2.3vw, 31px);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    color: #dceafa;
+    /* 笔画偏细，加一层极轻的暗影，压住远山的高光 */
+    text-shadow: 0 2px 12px rgba(3, 10, 22, 0.45);
+}
+
+.intl-desc {
+    margin-top: 20px;
+    font-size: 13.5px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    color: #a9bed4;
+}
+
+@media (max-width: 768px) {
+    .intl-hero {
+        min-height: 360px;
+        padding: 0 20px 88px;
+    }
+
+    .intl-title {
+        letter-spacing: 0.16em;
+        padding-left: 0.16em;
+    }
+
+    .intl-desc {
+        margin-top: 14px;
+        font-size: 12.5px;
+        letter-spacing: 0.6px;
+    }
+}
+
+/* ==================== 预订控制台 ==================== */
+
+.booking {
+    position: relative;
+    z-index: 3;
+    max-width: 1160px;
+    /* 面板上移压住首屏下沿，与首页服务卡片的层叠关系一致 */
+    margin: clamp(-88px, -6vw, -48px) auto 0;
+    padding: 0 16px clamp(56px, 5vw, 80px);
+}
+
+.booking-panel {
+    padding: clamp(24px, 2.4vw, 34px) clamp(20px, 2.6vw, 36px);
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 26px 64px rgba(7, 14, 28, 0.18);
+}
+
+/* 每行由「取车 / 还车」标签 + 四个字段组成 */
+.booking-row {
+    display: grid;
+    grid-template-columns: 62px repeat(4, minmax(0, 1fr));
+    gap: 16px 24px;
+    align-items: end;
+}
+
+.booking-row + .booking-row {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+}
+
+.booking-tag {
+    position: relative;
+    align-self: end;
+    padding-left: 12px;
+    /* 与输入框同高，保证标签底线与字段底线齐平 */
+    line-height: 34px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.booking-tag::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 14px;
+    background-color: var(--accent);
+    transform: translateY(-50%);
+}
+
+/* 字段：小标签在上，控件以一条细线收底 */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.field-label {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    color: var(--muted-2);
+}
+
+.field-wrap {
+    position: relative;
+}
+
+.field-input {
+    width: 100%;
+    height: 34px;
+    padding: 0 22px 0 0;
+    border: 0;
+    border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+    background-color: transparent;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.field-input:hover {
+    border-bottom-color: rgba(9, 16, 27, 0.42);
+}
+
+.field-input:focus {
+    border-bottom-color: var(--accent);
+    box-shadow: 0 1px 0 var(--accent);
+    outline: none;
+}
+
+.field-input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* 下拉箭头：两条边框拼的小尖角，替换系统原生箭头 */
+.field-wrap--select .field-input {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 24px;
+}
+
+.field-caret {
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+    transition: border-color 0.25s ease;
+}
+
+.field-wrap--select:hover .field-caret {
+    border-color: var(--accent);
+}
+
+/* 日期控件保留系统日历图标，只统一字号与底线 */
+.field-input[type="date"] {
+    padding-right: 0;
+    font-family: var(--font-tech);
+    letter-spacing: 0.5px;
+}
+
+.booking-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.booking-note {
+    max-width: 660px;
+    font-size: 12.5px;
+    letter-spacing: 0.3px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.booking-submit {
+    flex-shrink: 0;
+    height: 46px;
+    padding: 0 34px;
+    border: 0;
+    background-color: var(--accent);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.booking-submit:hover {
+    background-color: var(--accent-hi);
+    transform: translateY(-1px);
+}
+
+.booking-submit:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+    .booking-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    /* 取车 / 还车标签独占一行，避免与字段挤在同一列 */
+    .booking-tag {
+        grid-column: 1 / -1;
+        line-height: 1;
+        padding-left: 10px;
+    }
+
+    .booking-row + .booking-row {
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    .booking-foot {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        margin-top: 20px;
+    }
+
+    .booking-submit {
+        width: 100%;
+        height: 44px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking {
+        padding: 0 16px 48px;
+    }
+
+    .booking-panel {
+        padding: 22px 18px 20px;
+    }
+
+    .booking-note {
+        font-size: 12px;
+    }
+}
+
+/* ==================== 车队筛选台 ==================== */
+
+.fleet {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.fleet-panel {
+    padding: clamp(18px, 2vw, 26px) clamp(18px, 2.4vw, 30px);
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 44px rgba(7, 14, 28, 0.1);
+}
+
+/* 每行由左侧标签 + 选项区组成，与预订控制台同一套标签语言 */
+.fleet-row {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 14px 24px;
+    align-items: center;
+}
+
+.fleet-row + .fleet-row {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.fleet-tag {
+    position: relative;
+    padding-left: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.fleet-tag::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 14px;
+    background-color: var(--accent);
+    transform: translateY(-50%);
+}
+
+/* 车型组：六张线稿图标卡 */
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.type-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 6px 11px;
+    background-color: #ffffff;
+    border: 1px solid var(--line);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.type-card svg {
+    width: 54px;
+    height: 34px;
+    color: var(--ink-2);
+    fill: currentColor;
+}
+
+/* 剪影上的细部线条（行李架 / 挡风玻璃 / 座椅）仍用描边 */
+.type-card svg .ic-line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+}
+
+.type-card:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+.type-card:hover svg {
+    color: var(--accent);
+}
+
+.type-card.is-active {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+    color: var(--accent);
+}
+
+.type-card.is-active svg {
+    color: var(--accent);
+}
+
+/* 座位 / 品牌：细线复选框 */
+.fleet-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+    min-width: 0;
+}
+
+.opt {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+}
+
+.opt input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.opt-box {
+    flex-shrink: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #ffffff;
+    border: 1px solid var(--line-strong);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.opt:hover .opt-box {
+    border-color: var(--accent);
+}
+
+.opt input:checked + .opt-box {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.opt input:checked + .opt-box::after {
+    content: "";
+    position: absolute;
+    left: 4.5px;
+    top: 1.5px;
+    width: 4px;
+    height: 8px;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    transform: rotate(45deg);
+}
+
+.opt input:focus-visible + .opt-box {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* 品牌徽标：真实车标图片，白色小底衬托，悬停 / 勾选时恢复全彩 */
+.brand-mark {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    padding: 1px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 1px var(--line);
+    filter: grayscale(0.4);
+    opacity: 0.85;
+    transition: filter 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.opt:hover .brand-mark,
+.opt input:checked ~ .brand-mark {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+/* 排序与服务筛选条 */
+.sort-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    margin-top: 12px;
+    padding: 13px 22px;
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 28px rgba(7, 14, 28, 0.07);
+}
+
+/* ==================== 在售车型列表 ==================== */
+
+.car-list {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 6px 16px clamp(56px, 5vw, 80px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 列表标题头：与首页登记册同款，间距比首页收得更紧 */
+.intl-list-head {
+    margin-bottom: 6px;
+}
+
+/* 筛选无结果时的空状态：直接落在背景照片上，翻成浅色 */
+.fleet-empty {
+    margin-top: 24px;
+    padding: 48px 24px;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 8px rgba(3, 10, 22, 0.5);
+}
+
+.fleet-empty[hidden] {
+    display: none;
+}
+
+/* 被筛掉的车辆卡整体隐藏（.intl-car 的 flex 会覆盖默认 [hidden]） */
+.intl-car[hidden] {
+    display: none;
+}
+
+.intl-car {
+    position: relative;
+    display: flex;
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(7, 14, 28, 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* 悬停时从左侧亮起的钴蓝信号竖条，与首页服务卡同一语言 */
+.intl-car::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 3px;
+    background-color: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.35s ease;
+}
+
+.intl-car:hover::before {
+    transform: scaleY(1);
+}
+
+.intl-car:hover {
+    border-color: rgba(43, 87, 255, 0.45);
+    box-shadow: 0 18px 44px rgba(7, 14, 28, 0.14);
+    transform: translateY(-2px);
+}
+
+.intl-car-media {
+    width: 296px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.intl-car-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intl-car:hover .intl-car-media img {
+    transform: scale(1.045);
+}
+
+.intl-car-body {
+    flex: 1;
+    min-width: 0;
+    padding: 20px 26px 18px;
+}
+
+.intl-car-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.intl-car-title em {
+    margin: 0 8px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--muted-2);
+}
+
+/* 车牌芯片：蓝底白字，车队里每一辆车的「身份证」 */
+.intl-car-plate {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 2px 7px;
+    background-color: var(--accent);
+    border-radius: 3px;
+    color: #ffffff;
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    vertical-align: 2px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.intl-car-specs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    list-style: none;
+}
+
+.intl-car-specs li {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.intl-car-specs li + li {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px solid var(--line);
+}
+
+.intl-car-space {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.intl-car-meta {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: var(--muted-2);
+}
+
+.intl-car-meta i {
+    margin: 0 8px;
+    font-style: normal;
+    color: var(--line-strong);
+}
+
+/* 右侧：价格 + 预定按钮，虚线与信息区隔开 */
+.intl-car-side {
+    width: 216px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 14px;
+    padding: 20px 24px;
+    border-left: 1px dashed var(--line-strong);
+}
+
+.intl-car-price {
+    text-align: right;
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.intl-car-price strong {
+    font-size: 27px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.intl-car-price span {
+    display: block;
+    margin-top: 3px;
+    font-family: var(--font-cn);
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.intl-car-book {
+    min-width: 118px;
+    padding: 10px 22px;
+    background-color: var(--accent);
+    clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.intl-car-book:hover {
+    background-color: var(--accent-hi);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+    .fleet-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .fleet-tag {
+        line-height: 1;
+    }
+
+    /* 车型组在窄屏改为横向滑动，避免六张卡挤成三行 */
+    .type-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: 96px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .intl-car {
+        flex-direction: column;
+    }
+
+    .intl-car-media {
+        width: 100%;
+        height: 200px;
+    }
+
+    .intl-car-side {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-left: 0;
+        border-top: 1px dashed var(--line-strong);
+    }
+
+    .intl-car-price {
+        text-align: left;
+    }
+
+    .intl-car-price span {
+        display: inline;
+        margin-left: 8px;
+    }
+
+    .intl-car-book {
+        min-width: 0;
+        padding: 9px 26px;
+    }
+}
+
+/* ==================== 动效偏好 ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .intl-hero-inner {
+        animation: none !important;
+    }
+
+    .booking-submit:hover,
+    .type-card:hover,
+    .intl-car:hover,
+    .intl-car:hover .intl-car-media img,
+    .intl-car-book:hover {
+        transform: none;
+    }
+
+    .intl-car::before {
+        transition: none;
+    }
+}

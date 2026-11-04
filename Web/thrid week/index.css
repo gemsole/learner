@@ -1,0 +1,32 @@
+.exp1 {
+    color: red;
+    text-decoration: none;
+    font-style: oblique;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "微软雅黑";
+}
+
+.demo-display0 {
+    display: inline-block;
+    background: #00ff00;
+    width: 240px;
+    height: 100px;
+
+}
+
+.demo-display1 {
+    display: block;
+    background: #ff0000;
+    width: 240px;
+    height: 100px;
+    cursor: pointer;
+}
+
+a:hover {
+    color: red;
+}
+
+a:active {
+    color: blue;
+}

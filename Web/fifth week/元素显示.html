@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* 1. display 元素显示方式 */
+        .demo-display1 {
+            display: block;
+            /* 块级元素：独占一行 */
+            background: #8cf;
+            margin: 5px 0;
+        }
+
+        .demo-display2 {
+            display: inline;
+            /* 行内元素：同一行，宽高失效 */
+            background: #fc8;
+        }
+
+        .demo-display3 {
+            display: inline-block;
+            /* 行内块：同行排列，可设置宽高 */
+            width: 100px;
+            height: 40px;
+            background: #cf8;
+        }
+
+        .demo-display4 {
+            display: none;
+            /* 隐藏元素，**不占页面位置** */
+            background: #f8c;
+        }
+
+        /* 2. visibility 元素可见性 */
+        .demo-visibility {
+            visibility: hidden;
+            /* 隐藏元素，**仍然占据页面空间** */
+            width: 100px;
+            height: 40px;
+            background: orange;
+        }
+
+        /* 3. opacity 不透明度 */
+        .demo-opacity {
+            opacity: 0.1;
+            /* 0完全透明，1不透明；盒子+文字一起透明 */
+            width: 100px;
+            height: 40px;
+            background: blue;
+            color: #fff;
+        }
+
+        /* 4. cursor 鼠标指针类型 */
+        .demo-cursor1 {
+            cursor: default;
+            /* 默认箭头 */
+        }
+
+        .demo-cursor2 {
+            cursor: pointer;
+            /* 小手（链接默认） */
+        }
+
+        .demo-cursor3 {
+            cursor: move;
+            /* 移动十字箭头 */
+        }
+
+        .demo-cursor4 {
+            cursor: text;
+            /* 文本I型光标 */
+        }
+
+        .box-cursor {
+            width: 120px;
+            height: 40px;
+            background: #ddd;
+            margin: 4px;
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>1.display 显示方式</h3>
+    <div class="demo-display1">
+        display:block 块级
+        <a>aaaa</a>
+    </div>
+    <span class="demo-display2">display:inline 行内</span>
+    <div class="demo-display3">inline-block</div>
+    <div class="demo-display4">display:none 看不见，不占位</div>
+
+    <h3>2.visibility 可见性 hidden</h3>
+    <div class="demo-visibility">visibility:hidden 看不见，占位</div>
+    <p>上面盒子虽然看不见，但是这里文字被挤下去了</p>
+
+    <h3>3.opacity 不透明度</h3>
+    <div class="demo-opacity">opacity半透明</div>
+
+    <h3>4.cursor鼠标指针（鼠标移上去看光标变化）</h3>
+    <div class="box-cursor demo-cursor1">default默认箭头</div>
+    <div class="box-cursor demo-cursor2">pointer小手</div>
+    <div class="box-cursor demo-cursor3">move移动</div>
+    <div class="box-cursor demo-cursor4">text文本光标</div>
+</body>
+
+</html>

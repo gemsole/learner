@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PixelMascot 像素风小人 · 演示</title>
+    <style>
+        :root { --ink: #2b2440; --muted: #8b84a3; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, "Microsoft YaHei", sans-serif;
+            color: var(--ink);
+            background: linear-gradient(180deg, #f6f4fb 0%, #efeaf7 100%);
+        }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 8rem; }
+        .wrap h1 { font-size: 26px; margin: 0 0 4px; }
+        .wrap .sub { color: var(--muted); font-size: 14px; margin: 0 0 2.5rem; }
+        article { font-size: 16px; line-height: 1.9; }
+        article p { margin: 0 0 1.2rem; color: #55516a; }
+        article h2 { font-size: 18px; margin: 2rem 0 .8rem; }
+        .card {
+            background: #fff; border: 1px solid #e7e1f2; border-radius: 12px;
+            padding: 1.4rem 1.6rem; font-size: 14px; line-height: 1.8; color: #55516a;
+            margin-top: 1.4rem;
+        }
+        .card b { color: var(--ink); }
+        code { background: #efeaf7; padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>PixelMascot 演示页面</h1>
+        <p class="sub">右下角悬浮着一个像素风可爱小人，试试点击、连击、拖拽，或放着别理它。</p>
+
+        <article>
+            <h2>这是一个占位长文</h2>
+            <p>
+                页面正中间的文字是核心阅读内容。小人默认停靠右下角，只会在页面边缘走动，
+                不会跑到正中央遮挡你正在读的内容。如果你希望它站到别处，直接用鼠标把它拖过去即可。
+            </p>
+            <p>
+                一小段时间不去理会它，它就会自己在边缘随机走动、四处张望，还会在气泡里问你：
+                “需要我帮忙吗？”——这是它的<b>闲置巡视</b>行为。
+            </p>
+            <p>
+                连续快速地戳它几下，它会从开心变成<b>生气</b>：眼睛和腮红变化、头顶冒出💢，
+                说话内容也会变得气鼓鼓。单击一下则是开心地冒爱心、跟你打招呼。
+            </p>
+            <p>
+                下面再放几段文字把页面撑高，方便你观察小人随着滚动、以及边缘巡视的边界逻辑。
+            </p>
+            <h2>段落一</h2>
+            <p>这里是用来撑开页面高度的示例段落，帮助你观察小人在 viewport 固定悬浮层上的表现。</p>
+            <h2>段落二</h2>
+            <p>无论页面怎么滚动、窗口怎么缩放，小人都会被限制在可视区域内，不会飞出屏幕之外。</p>
+            <h2>段落三</h2>
+            <p>拖动到屏幕边缘附近松手，小人会自动吸附在留白边界内，停靠在角落或边缘，不挡内容。</p>
+        </article>
+
+        <div class="card">
+            <b>接入方式（复用）</b><br>
+            在任意页面的 <code>&lt;body&gt;</code> 末尾引入即可：<br><br>
+            <code>&lt;script src="pixel-mascot.js"&gt;&lt;/script&gt;</code><br><br>
+            组件自包含（零依赖），会自动注入带 <code>pm-</code> 前缀的 DOM 与样式，不会污染宿主页面全局样式。
+        </div>
+    </div>
+
+    <script src="./pixel-mascot.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>animation</title>
+    <style>
+        body {
+            padding: 30px;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #f90;
+            margin-bottom: 30px;
+        }
+
+        /* 定义关键帧，名字叫 move */
+        @keyframes move {
+            0% {
+                transform: translateX(0px);
+            }
+
+            100% {
+                transform: translateX(250px);
+            }
+        }
+
+        .demo1 {
+            animation-name: move;
+            animation-duration: 2s;
+            animation-timing-function: ease;
+            animation-delay: 0.3s;
+            animation-iteration-count: 3;
+            animation-direction: alternate;
+            animation-fill-mode: forwards;
+            animation-play-state: running;
+        }
+
+        .demo2 {
+            /* 简写版本，和demo1等价，play-state单独写 */
+            animation: move 2s ease 0.3s 3 alternate forwards;
+            animation-play-state: running;
+        }
+
+        .demo2:hover {
+            animation-play-state: paused;
+            /*鼠标悬浮暂停动画*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box demo1">分开写全部属性，播放3次，结束停终点</div>
+    <div class="box demo2">简写｜鼠标放上去暂停</div>
+</body>
+
+</html>

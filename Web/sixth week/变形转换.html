@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>transform变形转换</title>
+    <style>
+        body {
+            padding: 30px;
+        }
+
+        .item {
+            width: 120px;
+            height: 120px;
+            background-color: orange;
+            margin: 30px;
+            display: inline-block;
+            /* 过渡，hover触发平滑变形 */
+            transition: transform 0.4s ease;
+        }
+
+        /* 1. translate 平移 */
+        .demo1:hover {
+            transform: translate(30px, 15px);
+        }
+
+        /* 2. scale 缩放 */
+        .demo2:hover {
+            transform: scale(1.2, 0.7);
+        }
+
+        /* 3. rotate 旋转 */
+        .demo3:hover {
+            transform: rotate(25deg);
+        }
+
+        /* 4. skew 斜切 */
+        .demo4:hover {
+            transform: skew(10deg, 5deg);
+        }
+
+        /* 5. 组合变形【顺序：平移→旋转→缩放】 */
+        .demo5:hover {
+            transform: translate(20px, 10px) rotate(12deg) scale(1.1);
+        }
+
+        /* 6. 修改 transform-origin 原点，再旋转（左上角为基点旋转） */
+        /* 原点写在原始元素，不是hover */
+        .demo6 {
+            transform-origin: left top;
+        }
+
+        .demo6:hover {
+            transform: rotate(25deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="item demo1">translate平移</div>
+    <div class="item demo2">scale缩放</div>
+    <div class="item demo3">rotate旋转</div>
+    <div class="item demo4">skew斜切</div>
+    <div class="item demo5">组合变形</div>
+    <div class="item demo6">origin原点+旋转</div>
+</body>
+
+</html>

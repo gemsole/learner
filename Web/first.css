@@ -1,0 +1,39 @@
+/* 选择类名为 title 的元素 */
+.title {
+    color: red;
+    font-size: 64px;
+    text-align: center;
+}
+
+/* 选择类名为 paragraph 的元素 */
+.paragraph {
+    height: 32px;
+    text-decoration: underline;
+}
+
+/* 选择类名为 card 的元素 */
+.card {
+    height: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    color: green;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 2px;
+}
+
+/* 选择类名为 card 的元素内部、类名为 inner-card 的元素 */
+.inner-card {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+/* 选择类名为 inner-text 的元素 */
+.inner-text {
+    text-align: center;
+}

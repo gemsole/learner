@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>classroom</title>
+    <link rel="stylesheet" href="./demo.css">
+</head>
+<body>
+    <table width="100%" border="1" cellspacing="4" cellpadding="10">
+        <thead>
+            <tr>
+                <th>班级</th>
+                <th>序号</th>
+                <th class="name">请输入姓名</th>
+                <th class="gender">请选择性别</th>
+                <th>照片</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center" rowspan="3">1班</td>
+                <td>01</td>
+                <td class="name">张三</td>
+                <td class="gender">女</td>
+                <td width="300" height="50"><img src="./img/张三.jpg" alt="张三"></td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td class="name">李四</td>
+                <td class="gender">女</td>
+                <td width="300" height="50"><img src="./img/李四.jpg" alt="李四"></td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td class="name">王五</td>
+                <td class="gender">男</td>
+                <td width="300" height="50"><img src="./img/王五.jpg" alt="王五"></td> 
+            </tr>
+            <tr>
+                <td align="center" rowspan="2">2班</td>
+                <td>04</td>
+                <td class="name">赵六</td>
+                <td class="gender">男</td>
+                <td width="300" height="50"><img src="./img/赵六.jpg" alt="赵六"></td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td class="name">王二</td>
+                <td class="gender">女</td>
+                <td width="300" height="50"><img src="./img/王二.jpg" alt="王二"></td>
+            </tr>
+            <tr>
+                <td align="center" rowspan="2">3班</td>
+                <td>06</td>
+                <td class="name">猪猪侠</td>
+                <td class="gender">男</td>
+                <td width="300" height="50"><img src="./img/猪猪侠.jpg" alt="猪猪侠"></td>
+            </tr>
+            <tr>
+                <td>07</td>
+                <td class="name">光头强</td>
+                <td class="gender">男</td>
+                <td width="300" height="50"><img src="./img/光头强.jpg" alt="光头强"></td>
+            </tr>
+            <tr>
+                <td align="center">4班</td>
+                <td>08</td>
+                <td class="name">超级飞侠</td>
+                <td class="gender">女</td>
+                <td width="300" height="50"><img src="./img/超级飞侠.jpg" alt="超级飞侠"></td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post">
+        <label for="gender">请选择性别：</label>
+        <input type="radio" name="gender" id="male">
+        <label for="male">男</label>
+        <input type="radio" name="gender" id="female">
+        <label for="female">女</label><br>
+        <label for="password">请输入密码：</label>
+        <input type="password" placeholder="请输入密码">
+        <br>
+        <input type="checkbox" name="agree" id="agree">
+        <label for="agree">同意协议</label>
+        <br>
+        <label for="name">请输入姓名：</label>
+        <input type="text" placeholder="请输入姓名">
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
