@@ -1,6 +1,6 @@
 *.pth
 account/
-DataExcavate/
+# DataExcavate/
 # Deep Learning/data/
 **/data/
 **/__pycache__/
