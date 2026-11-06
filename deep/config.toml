@@ -3,19 +3,19 @@ data = "data"
 # 是否自动下载数据集
 download = false
 # 每批数据大小
-batch_size = 64
+batch_size = 128
 # 数据加载子进程数（Windows 下多进程需入口脚本加 if __name__ == "__main__" 保护）
-num_workers = 0
+num_workers = 8
 # 是否使用 pin_memory 加速数据传输
-pin_memory = false
+pin_memory = true
 # non_blocking 数据加载
-non_blocking = false
+non_blocking = true
 # 是否持久化子进程（仅 num_workers > 0 时生效）
-persistent_workers = false
+persistent_workers = true
 # 训练集是否打乱
 shuffle = true
 # 图像缩放尺寸（需与模型输入尺寸保持一致）
-resize = 32
+resize = 224
 # 日志文件路径（相对项目根目录）
 log = "train.log"
 # 学习率

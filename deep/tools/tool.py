@@ -33,7 +33,7 @@ class Tools:
 
     def load(self):
         """
-        加载数据集并返回数据加载器
+        加载数据集并返回数据加载器\n
         train_loader, test_loader, train_data, test_data
         """
         transform = transforms.Compose(
@@ -89,17 +89,23 @@ class Tools:
         """
         self.model.train()
         total_loss = 0
-        for img, label in self.train_loader:
+        non_blocking = self.config["non_blocking"]
+        device = self.device
+        optimizer = self.optimizer
+        model = self.model
+        train_loader = self.train_loader
+        criterion = self.criterion
+        for img, label in train_loader:
             img, label = img.to(
-                self.device, non_blocking=self.config["non_blocking"]
-            ), label.to(self.device, non_blocking=self.config["non_blocking"])
-            self.optimizer.zero_grad()
-            out = self.model(img)
-            loss = self.criterion(out, label)
+                device, non_blocking=non_blocking
+            ), label.to(device, non_blocking=non_blocking)
+            optimizer.zero_grad(set_to_none=True)
+            out = model(img)
+            loss = criterion(out, label)
             loss.backward()
-            self.optimizer.step()
+            optimizer.step()
             total_loss += loss.item()
-        return total_loss / len(self.train_loader)
+        return total_loss / len(self.train_data)
 
     def test(self):
         """
@@ -108,16 +114,24 @@ class Tools:
         """
         self.model.eval()
         correct = 0
+        non_blocking = self.config["non_blocking"]
+        device = self.device
+        model = self.model
+        test_loader = self.test_loader
         with torch.no_grad():
-            for img, label in self.test_loader:
+            for img, label in test_loader:
                 img, label = img.to(
-                    self.device, non_blocking=self.config["non_blocking"]
-                ), label.to(self.device, non_blocking=self.config["non_blocking"])
-                out = self.model(img)
+                    device, non_blocking=non_blocking
+                ), label.to(device, non_blocking=non_blocking)
+                out = model(img)
                 pred = torch.argmax(out, dim=1)
                 correct += (pred == label).sum().item()
         return correct / len(self.test_data)
 
     @staticmethod
-    def save(state_dict, path):
+    def save(state_dict, path = "model.pth"):
+        """
+        保存模型状态字典到指定路径\n
+        path: 模型状态字典保存路径
+        """
         torch.save(state_dict, path)
