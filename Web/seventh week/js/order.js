@@ -17,6 +17,16 @@
     var MIN_RENTAL_DAYS = APP_CONFIG.get("minRentalDays");
     var STORES_BY_PLACE = APP_CONFIG.get("storesByPlace");
 
+    /* 「套餐包含」页签内容 / 限时活动 / 免费取消说明，同样出自配置层 */
+    var INCLUDE = APP_CONFIG.get("orderInclude");
+    var PROMO = APP_CONFIG.get("orderPromo");
+    var FREE_CANCEL = APP_CONFIG.get("freeCancel");
+
+    /* 租车流程 / 订单条款 / 注意事项页签内容，亦出自配置层 */
+    var FLOW = APP_CONFIG.get("orderFlow");
+    var TERMS = APP_CONFIG.get("orderTerms");
+    var NOTICES = APP_CONFIG.get("orderNotices");
+
     /* 从 "YYYY-MM-DD" 算出「周几」标签 */
     function weekdayOf(dateStr) {
         var p = dateStr.split("-");
@@ -68,6 +78,133 @@
 
     fillConfigText();
 
+    /* 「套餐包含」页签：结构静态在 HTML，文字与条目统一由配置层渲染 */
+    function renderInclude() {
+        if (!INCLUDE) return;
+
+        setText("inc-fee-badge", INCLUDE.feeBadge);
+        setText("inc-fee-title", INCLUDE.feeTitle);
+        setText("inc-ins-badge", INCLUDE.insBadge);
+        setText("inc-ins-title", INCLUDE.insTitle);
+        setText("inc-extra", INCLUDE.extra);
+
+        /* 费用勾选清单 */
+        var feeList = document.getElementById("inc-fee-list");
+        if (feeList) {
+            feeList.innerHTML = "";
+            INCLUDE.feeItems.forEach(function (item) {
+                var li = document.createElement("li");
+                li.textContent = item;
+                feeList.appendChild(li);
+            });
+        }
+
+        /* 保险分组：组标题 + 若干「名称 + 说明」卡片 */
+        var groupsBox = document.getElementById("inc-groups");
+        if (groupsBox) {
+            groupsBox.innerHTML = "";
+            INCLUDE.groups.forEach(function (group) {
+                var block = document.createElement("section");
+                block.className = "inc-group";
+
+                var head = document.createElement("h4");
+                head.className = "inc-group-title";
+                head.textContent = group.title;
+                block.appendChild(head);
+
+                var cards = document.createElement("div");
+                cards.className = "inc-cards";
+                group.items.forEach(function (item) {
+                    var card = document.createElement("div");
+                    card.className = "inc-card";
+                    var name = document.createElement("h5");
+                    name.textContent = item.name;
+                    var desc = document.createElement("p");
+                    desc.textContent = item.desc;
+                    card.appendChild(name);
+                    card.appendChild(desc);
+                    cards.appendChild(card);
+                });
+                block.appendChild(cards);
+                groupsBox.appendChild(block);
+            });
+        }
+    }
+
+    renderInclude();
+
+    /* 限时活动与免费取消静态文案：同样由配置层填充（时限部分随取车安排联动） */
+    function renderPromo() {
+        if (PROMO) {
+            setText("promo-tag", PROMO.tag);
+            setText("promo-text", PROMO.text);
+        }
+        if (FREE_CANCEL) {
+            setText("cancel-title", FREE_CANCEL.title);
+            setText("cancel-late", FREE_CANCEL.lateNote);
+        }
+    }
+
+    renderPromo();
+
+    /* 租车流程：按配置渲染为竖向步骤时间轴（序号由 CSS 计数器生成） */
+    function renderFlow() {
+        var box = document.getElementById("flow-list");
+        if (!box || !FLOW) return;
+        box.innerHTML = "";
+        FLOW.forEach(function (step) {
+            var li = document.createElement("li");
+            li.className = "flow-step";
+            var title = document.createElement("h3");
+            title.className = "flow-title";
+            title.textContent = step.title;
+            var desc = document.createElement("p");
+            desc.className = "flow-desc";
+            desc.textContent = step.desc;
+            li.appendChild(title);
+            li.appendChild(desc);
+            box.appendChild(li);
+        });
+    }
+
+    renderFlow();
+
+    /* 订单条款：按配置渲染为编号条款卡（编号由 CSS 计数器生成） */
+    function renderTerms() {
+        var box = document.getElementById("terms-list");
+        if (!box || !TERMS) return;
+        box.innerHTML = "";
+        TERMS.forEach(function (term) {
+            var card = document.createElement("section");
+            card.className = "terms-card";
+            var title = document.createElement("h3");
+            title.className = "terms-title";
+            title.textContent = term.title;
+            var desc = document.createElement("p");
+            desc.className = "terms-desc";
+            desc.textContent = term.desc;
+            card.appendChild(title);
+            card.appendChild(desc);
+            box.appendChild(card);
+        });
+    }
+
+    renderTerms();
+
+    /* 注意事项：按配置渲染为警示条目 */
+    function renderNotices() {
+        var box = document.getElementById("notice-list");
+        if (!box || !NOTICES) return;
+        box.innerHTML = "";
+        NOTICES.forEach(function (text) {
+            var li = document.createElement("li");
+            li.textContent = text;
+            box.appendChild(li);
+        });
+    }
+
+    renderNotices();
+
     /* 把一辆车的档案填进页面各个锚点 */
     var current = null;             // 当前展示的车辆档案，费用联动时复用
 
@@ -96,6 +233,12 @@
 
         setText("step-3-time", shortWhen(schedule.pick.date, schedule.pick.time));
         setText("step-4-time", shortWhen(schedule.ret.date, schedule.ret.time));
+
+        /* 免费取消时限随取车安排联动：取车时间（当地时间）前可取消 */
+        if (FREE_CANCEL) {
+            setText("cancel-deadline", FREE_CANCEL.deadlinePrefix +
+                schedule.pick.date + " " + schedule.pick.time + FREE_CANCEL.deadlineSuffix);
+        }
     }
 
     function fill(car) {

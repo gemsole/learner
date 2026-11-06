@@ -889,50 +889,394 @@
     box-shadow: 0 14px 36px rgba(7, 14, 28, 0.08);
 }
 
-.order-panel-list,
-.order-panel-steps {
+/* ==================== 套餐包含：徽章 + 清单 / 保险分组 ==================== */
+
+.inc-block {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+.inc-block + .inc-block {
+    margin-top: 30px;
+    padding-top: 26px;
+    border-top: 1px dashed var(--line-strong);
+}
+
+/* 方形切角徽章：与主按钮同一「切角」语言，钴蓝描边浅底 */
+.inc-badge {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    background-color: rgba(43, 87, 255, 0.06);
+    border: 1px solid var(--accent);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    color: var(--accent);
+    font-family: var(--font-cn);
+    font-size: 19px;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.inc-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.inc-title {
+    padding-top: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text);
+}
+
+/* 费用勾选清单：三列铺开，绿色对勾延续「取车 / 减免」语义色 */
+.inc-checks {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 18px;
+    margin-top: 16px;
     list-style: none;
 }
 
-.order-panel-list li,
-.order-panel-steps li {
+.inc-checks li {
     position: relative;
-    padding: 6px 0 6px 20px;
+    padding-left: 22px;
     font-size: 13.5px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+}
+
+.inc-checks li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 8px;
+    height: 5px;
+    border: solid #1a9e5c;
+    border-width: 0 0 2px 2px;
+    transform: rotate(-45deg);
+}
+
+/* 保险分组：组标题带对勾，卡片浅钴蓝底区分层级 */
+.inc-group + .inc-group {
+    margin-top: 20px;
+}
+
+.inc-group-title {
+    position: relative;
+    padding-left: 22px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+}
+
+.inc-group-title::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 8px;
+    height: 5px;
+    border: solid #1a9e5c;
+    border-width: 0 0 2px 2px;
+    transform: rotate(-45deg);
+}
+
+.inc-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.inc-card {
+    padding: 14px 16px 15px;
+    background-color: rgba(43, 87, 255, 0.04);
+    border: 1px solid var(--line);
+}
+
+.inc-card h5 {
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+}
+
+.inc-card p {
+    margin-top: 7px;
+    font-size: 12.5px;
     line-height: 1.7;
     color: var(--muted);
 }
 
-/* 方形钴蓝角标，延续列表页的方块记号 */
-.order-panel-list li::before {
+/* 补充全险提示：与勾选清单同款对勾，弱化一级 */
+.inc-extra {
+    position: relative;
+    margin-top: 20px;
+    padding-left: 22px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+}
+
+.inc-extra::before {
     content: "";
     position: absolute;
     left: 2px;
-    top: 15px;
-    width: 6px;
-    height: 6px;
+    top: 5px;
+    width: 8px;
+    height: 5px;
+    border: solid #1a9e5c;
+    border-width: 0 0 2px 2px;
+    transform: rotate(-45deg);
+}
+
+/* ==================== 费用区补充：限时活动 + 免费取消 ==================== */
+
+.order-fee-promo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+}
+
+/* 活动角标：实心钴蓝小芯片，与车牌芯片同族 */
+.order-fee-promo-tag {
+    flex-shrink: 0;
+    padding: 2px 8px;
     background-color: var(--accent);
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-.order-panel-steps li {
-    counter-increment: panel-step;
-    padding-left: 30px;
+.order-fee-cancel {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 12px;
+    padding: 14px 16px 15px;
+    background-color: var(--paper-hi);
+    border: 1px solid var(--line);
+    box-shadow: 0 14px 36px rgba(7, 14, 28, 0.08);
 }
 
-.order-panel-steps li::before {
-    content: counter(panel-step);
+.order-fee-cancel svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.order-fee-cancel-main {
+    min-width: 0;
+}
+
+.order-fee-cancel-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+}
+
+.order-fee-cancel-title strong {
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+}
+
+.order-fee-cancel-title span {
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.order-fee-cancel-late {
+    margin-top: 5px;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    color: var(--muted-2);
+}
+
+/* ==================== 租车流程：竖向步骤时间轴 ==================== */
+
+.flow {
+    list-style: none;
+    counter-reset: flow-step;
+}
+
+.flow-step {
+    position: relative;
+    padding: 0 0 24px 46px;
+    counter-increment: flow-step;
+}
+
+.flow-step:last-child {
+    padding-bottom: 2px;
+}
+
+/* 竖向连接线：与取还车时间轴同一条细线语言 */
+.flow-step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 13.5px;
+    top: 32px;
+    bottom: 2px;
+    width: 1px;
+    background-color: var(--line-strong);
+}
+
+/* 序号节点：钴蓝实心方块，技术字体编号 */
+.flow-step::after {
+    content: counter(flow-step, decimal-leading-zero);
     position: absolute;
     left: 0;
-    top: 9px;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 28px;
+    height: 28px;
     background-color: var(--accent);
     color: #ffffff;
     font-family: var(--font-tech);
-    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.flow-title {
+    padding-top: 4px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+}
+
+.flow-desc {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+/* ==================== 订单条款：编号条款卡 ==================== */
+
+.terms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    counter-reset: terms-card;
+}
+
+.terms-card {
+    position: relative;
+    padding: 16px 18px 17px;
+    background-color: rgba(43, 87, 255, 0.04);
+    border: 1px solid var(--line);
+    counter-increment: terms-card;
+}
+
+/* 大号淡色编号：技术字体压角，形成档案卡质感 */
+.terms-card::after {
+    content: counter(terms-card, decimal-leading-zero);
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(43, 87, 255, 0.16);
+}
+
+.terms-title {
+    position: relative;
+    padding-left: 12px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text);
+}
+
+.terms-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 3px;
+    height: 13px;
+    background-color: var(--accent);
+}
+
+.terms-desc {
+    margin-top: 9px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+}
+
+/* ==================== 注意事项：警示条目 ==================== */
+
+.notices {
+    list-style: none;
+}
+
+.notices li {
+    position: relative;
+    padding: 12px 16px 12px 42px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+.notices li + li {
+    border-top: 1px dashed var(--line-strong);
+}
+
+/* 警示三角：还车橙语义色描边 + 叹号，与信息性内容区隔 */
+.notices li::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 16px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 14px solid #f2601c;
+}
+
+.notices li::after {
+    content: "!";
+    position: absolute;
+    left: 17.5px;
+    top: 21px;
+    width: 5px;
+    text-align: center;
+    color: #ffffff;
+    font-family: var(--font-tech);
+    font-size: 10px;
     font-weight: 700;
 }
 
@@ -980,6 +1324,10 @@
     .order-tab-nav {
         gap: 22px;
         overflow-x: auto;
+    }
+
+    .inc-checks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -1038,6 +1386,36 @@
 
     .order-panel {
         padding: 18px 16px 20px;
+    }
+
+    .inc-block {
+        gap: 12px;
+    }
+
+    .inc-badge {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .inc-title {
+        padding-top: 9px;
+    }
+
+    .inc-checks {
+        grid-template-columns: 1fr;
+    }
+
+    .terms {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-step {
+        padding-left: 40px;
+    }
+
+    .notices li {
+        padding-right: 4px;
     }
 }
 

@@ -5,7 +5,7 @@ import tomllib
 config = tomllib.load(open("tools/config.toml", "rb"))
 
 
-def load_data():
+def load():
     transform = transforms.Compose(
         [
             transforms.Resize(224),  # 28x28 → 224x224

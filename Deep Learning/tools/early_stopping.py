@@ -13,6 +13,7 @@ class EarlyStopping:
         self.counter = 0                  # 连续无提升的轮数
         self.best_score = None            # 历史最佳准确率
         self.early_stop = False           # 是否触发早停
+        
 
     def __call__(self, acc):
         # 第一轮：直接记录当前准确率作为初始最佳值

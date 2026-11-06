@@ -290,6 +290,23 @@
                     <dd id="fee-offline">¥0</dd>
                 </div>
             </dl>
+            <p class="order-fee-promo">
+                <span class="order-fee-promo-tag" id="promo-tag">限时活动</span>
+                <span id="promo-text">下单后分享行程给好友，最高可返 400 元奖励金</span>
+            </p>
+            <div class="order-fee-cancel">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.2" />
+                    <path d="M12 11v5.4M12 7.8v.2" />
+                </svg>
+                <div class="order-fee-cancel-main">
+                    <p class="order-fee-cancel-title">
+                        <strong id="cancel-title">取车前免费取消</strong>
+                        <span id="cancel-deadline">取车时间（当地时间 2026-11-02 09:00）前可免费取消</span>
+                    </p>
+                    <p class="order-fee-cancel-late" id="cancel-late">超过取车时间取消或未取车，将不退还预付款</p>
+                </div>
+            </div>
             <p class="order-fee-tip">费用为演示估算，实际以取车门店结算为准</p>
         </section>
 
@@ -302,37 +319,37 @@
                 <button type="button" class="order-tab" role="tab" aria-selected="false">注意事项</button>
             </div>
             <div class="order-panel is-active" role="tabpanel">
-                <ul class="order-panel-list">
-                    <li>车辆租金及基础服务费用，含车辆清洁与消毒</li>
-                    <li>所选保价套餐对应的保障范围与起赔额度</li>
-                    <li>7×24 小时中英文道路救援与客服支持</li>
-                    <li>异地还车费、过路费、油费等按实际发生另行结算</li>
-                </ul>
+                <div class="inc">
+                    <!-- 租金及服务费用：徽章 + 勾选项清单 -->
+                    <section class="inc-block">
+                        <i class="inc-badge" id="inc-fee-badge" aria-hidden="true">¥</i>
+                        <div class="inc-main">
+                            <h3 class="inc-title" id="inc-fee-title">租金及服务费用</h3>
+                            <ul class="inc-checks" id="inc-fee-list"></ul>
+                        </div>
+                    </section>
+                    <!-- 保险明细：徽章 + 分组卡片 -->
+                    <section class="inc-block">
+                        <i class="inc-badge" id="inc-ins-badge" aria-hidden="true">保</i>
+                        <div class="inc-main">
+                            <h3 class="inc-title" id="inc-ins-title">保险明细</h3>
+                            <div class="inc-groups" id="inc-groups"></div>
+                            <p class="inc-extra" id="inc-extra"></p>
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="order-panel" role="tabpanel" hidden>
-                <ol class="order-panel-steps">
-                    <li>在线选定车型与取还车时间，提交订单</li>
-                    <li>按所选方式完成订金或全额支付</li>
-                    <li>到店出示驾照认证件与护照办理取车</li>
-                    <li>验车确认后签署单据，交车开始行程</li>
-                    <li>按约定时间还车，现场验车并结算余款</li>
-                </ol>
+                <!-- 租车流程：竖向步骤时间轴，由 order.js 按配置渲染 -->
+                <ol class="flow" id="flow-list"></ol>
             </div>
             <div class="order-panel" role="tabpanel" hidden>
-                <ul class="order-panel-list">
-                    <li>取车前可免费修改与取消，还车后费用多退少补</li>
-                    <li>押金于还车验车无误后 7 个工作日内原路退回</li>
-                    <li>油量按「取车刻度还车」结算，不足部分收取油费与服务费</li>
-                    <li>行程期间产生的违章与罚单由承租人承担</li>
-                </ul>
+                <!-- 订单条款：编号条款卡，由 order.js 按配置渲染 -->
+                <div class="terms" id="terms-list"></div>
             </div>
             <div class="order-panel" role="tabpanel" hidden>
-                <ul class="order-panel-list">
-                    <li>主驾驶人需持有效驾照并完成认证，部分国家需公证翻译件</li>
-                    <li>驾驶人年龄一般要求 21-65 周岁，驾龄满 1 年</li>
-                    <li>未经许可不得跨境行驶或用于竞赛、营运等用途</li>
-                    <li>发生事故请第一时间报警并联系门店与保险方</li>
-                </ul>
+                <!-- 注意事项：警示条目，由 order.js 按配置渲染 -->
+                <ul class="notices" id="notice-list"></ul>
             </div>
         </section>
 

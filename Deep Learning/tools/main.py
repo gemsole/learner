@@ -2,7 +2,12 @@ import tomllib
 import torch
 
 
-config = tomllib.load(open("config.toml", "rb"))
+config = tomllib.load(open("tools/config.toml", "rb"))
+
+
+def log(file, msg):
+    with open(file, "a") as f:
+        f.write(msg + "\n")
 
 
 def train(model, train_loader, optimizer, criterion, device):
