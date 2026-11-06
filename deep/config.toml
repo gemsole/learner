@@ -16,10 +16,6 @@ persistent_workers = false
 shuffle = true
 # 图像缩放尺寸（需与模型输入尺寸保持一致）
 resize = 32
-# CIFAR-10 归一化均值
-mean = [0.4914, 0.4822, 0.4465]
-# CIFAR-10 归一化标准差
-std = [0.2023, 0.1994, 0.209108]
 # 日志文件路径（相对项目根目录）
 log = "train.log"
 # 学习率

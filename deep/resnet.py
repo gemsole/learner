@@ -1,0 +1,171 @@
+import torch
+import torch.nn as nn
+
+
+class BasicBlock(nn.Module):
+    expansion = 1
+
+    def __init__(
+        self,
+        in_channels,
+        out_channels,
+        stride=1,
+        downsample=None,
+    ):
+        super().__init__()
+
+        # 3x3 卷积主路径
+        self.conv1 = nn.Conv2d(
+            in_channels,
+            out_channels,
+            kernel_size=3,
+            stride=stride,
+            padding=1,
+            bias=False,
+        )
+        self.bn1 = nn.BatchNorm2d(out_channels)
+        self.relu = nn.ReLU(inplace=True)
+
+        self.conv2 = nn.Conv2d(
+            out_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=False
+        )
+        self.bn2 = nn.BatchNorm2d(out_channels)
+
+        # 下采样层（用于调整输入尺寸或通道数，使得能够与残差相加）
+        self.downsample = downsample
+
+    def forward(self, x):
+        identity = x
+
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+
+        out = self.conv2(out)
+        out = self.bn2(out)
+
+        if self.downsample is not None:
+            identity = self.downsample(x)
+
+        # 残差连接：F(x) + x
+        out += identity
+        out = self.relu(out)
+
+        return out
+
+
+class ResNet(nn.Module):
+    """ResNet 主体架构"""
+
+    def __init__(
+        self,
+        block,
+        layers,
+        num_classes,
+        zero_init_residual,
+    ):
+        super().__init__()
+
+        self.in_channels = 64
+
+        # 初始卷积层（将输入图像转换为 64 通道，分辨率减半）
+        self.conv1 = nn.Conv2d(
+            3, self.in_channels, kernel_size=7, stride=2, padding=3, bias=False
+        )
+        self.bn1 = nn.BatchNorm2d(self.in_channels)
+        self.relu = nn.ReLU(inplace=True)
+        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+
+        # 四个主要的残差层组 (Layer1 ~ Layer4)
+        # ResNet-18 的 layers 参数通常为 [2, 2, 2, 2]
+        self.layer1 = self._make_layer(block, 64, layers[0], stride=1)
+        self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
+        self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
+        self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
+
+        # 全局平均池化与分类全连接层
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = nn.Linear(512 * block.expansion, num_classes)
+
+        # 参数初始化
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode="fan_out", nonlinearity="relu")
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+
+        if zero_init_residual:
+            for m in self.modules():
+                if isinstance(m, BasicBlock):
+                    nn.init.constant_(m.bn2.weight, 0)
+
+    def _make_layer(
+        self,
+        block,
+        out_channels,
+        blocks,
+        stride=1,
+    ):
+        downsample = None
+
+        # 当步长不为 1 或输入通道数与输出通道数不匹配时，需要通过下采样对齐维度
+        if stride != 1 or self.in_channels != out_channels * block.expansion:
+            downsample = nn.Sequential(
+                nn.Conv2d(
+                    self.in_channels,
+                    out_channels * block.expansion,
+                    kernel_size=1,
+                    stride=stride,
+                    bias=False,
+                ),
+                nn.BatchNorm2d(out_channels * block.expansion),
+            )
+
+        layers = []
+        # 组内的第一个块负责处理 stride 和通道变换
+        layers.append(
+            block(
+                self.in_channels,
+                out_channels,
+                stride,
+                downsample,
+            )
+        )
+        self.in_channels = out_channels * block.expansion
+
+        # 组内的其余块
+        for _ in range(1, blocks):
+            layers.append(
+                block(
+                    self.in_channels,
+                    out_channels,
+                )
+            )
+
+        return nn.Sequential(*layers)
+
+    def forward(self, x):
+        # 1. 初始特征提取
+        x = self.conv1(x)
+        x = self.bn1(x)
+        x = self.relu(x)
+        x = self.maxpool(x)
+
+        # 2. 残差层前向传播
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+
+        # 3. 分类输出
+        x = self.avgpool(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
+
+        return x
+
+
+def resnet18(num_classes=1000):
+    """构建标准的 ResNet-18 模型，层数配置为 [2, 2, 2, 2]"""
+    return ResNet(BasicBlock, [2, 2, 2, 2], num_classes=num_classes)
