@@ -105,7 +105,7 @@ class Tools:
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
-        return total_loss / len(self.train_data)
+        return total_loss / len(self.train_loader)
 
     def test(self):
         """

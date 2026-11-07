@@ -1,58 +1,60 @@
 import copy
+import torch
 
 
 class EarlyStopping:
     """
     patience: 容忍多少轮无提升后停止
-    delta: 视为“提升”所需的最小准确率增幅
-    verbose: 是否打印提示信息
-    按“准确率越高越好”实现的早停机制。
-
-    每轮将当前准确率传入 __call__：
-    - 若准确率比历史最佳提升超过 delta，则重置计数器并更新最佳值；
-    - 否则计数器 +1，当计数器达到 patience 时置 early_stop 为 True。
+    delta: 视为“提升”所需的最小增幅
+    mode: 'max'（如准确率）或 'min'（如 Loss）
+    hint: 是否打印提示信息
     """
 
-    def __init__(self, patience=5, delta=0.0, verbose=False):
-        self.patience = patience  # 容忍多少轮无提升后停止
-        self.delta = delta  # 视为“提升”所需的最小准确率增幅
-        self.verbose = verbose  # 是否打印提示信息
-        self.best_model = None  # 历史最佳模型状态字典
-        self.counter = 0  # 连续无提升的轮数
-        self.best_score = None  # 历史最佳准确率
-        self.early_stop = False  # 是否触发早停
+    def __init__(self, patience=5, delta=0.0, mode="max", hint=False):
+        self.patience = patience
+        self.delta = delta
+        self.mode = mode
+        self.hint = hint
+        
+        self.best_model = None
+        self.counter = 0
+        self.early_stop = False
+        self.best_score = None
 
-    def __call__(self, acc, model):
-        """
-        检查是否触发早停
-        acc: 当前准确率
-        model: 当前模型
-        """
-        # 第一轮：直接记录当前准确率作为初始最佳值，并保存最佳模型
+        # 根据模式定义优化的比较逻辑
+        if self.mode == "max":
+            self.is_better = lambda current, best: current > best + self.delta
+        elif self.mode == "min":
+            self.is_better = lambda current, best: current < best - self.delta
+        else:
+            raise ValueError(f"Unsupported mode: {self.mode}. Use 'max' or 'min'.")
+
+    def __call__(self, score, model):
         if self.best_score is None:
-            self.best_score = acc
-            self.best_model = copy.deepcopy(model.state_dict())
-            if self.verbose:
-                print(f"EarlyStopping: 初始最佳准确率 {acc:.4f}")
+            self.best_score = score
+            self.save_checkpoint(model)
+            if self.hint:
+                print(f"EarlyStopping: 初始最佳指标 {score:.4f}")
             return
 
-        # 后续轮：检查是否有提升
-        if acc > self.best_score + self.delta:
-            # 准确率提升：更新最佳值并重置计数器
-            self.best_score = acc
-            self.best_model = copy.deepcopy(model.state_dict())
+        if self.is_better(score, self.best_score):
+            self.best_score = score
+            self.save_checkpoint(model)
             self.counter = 0
-            if self.verbose:
-                print(f"EarlyStopping: 准确率提升至 {acc:.4f}，计数器已重置")
+            if self.hint:
+                print(f"EarlyStopping: 指标提升至 {score:.4f}，计数器已重置")
         else:
-            # 无提升：计数器 +1，达到 patience 则触发早停
             self.counter += 1
-            if self.verbose:
+            if self.hint:
                 print(
-                    f"EarlyStopping: 无提升 ({acc:.4f} <= 最佳 {self.best_score:.4f})，"
+                    f"EarlyStopping: 无提升 ({score:.4f} vs 最佳 {self.best_score:.4f})，"
                     f"计数 {self.counter}/{self.patience}"
                 )
             if self.counter >= self.patience:
                 self.early_stop = True
-                if self.verbose:
+                if self.hint:
                     print("EarlyStopping: 触发早停，提前结束训练！")
+
+    def save_checkpoint(self, model):
+        """优化：仅克隆 state_dict 中的 tensor，避免深拷贝整个模型对象的开销"""
+        self.best_model = {k: v.cpu().clone() for k, v in model.state_dict().items()}
