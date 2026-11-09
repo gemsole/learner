@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/order.css">
     <link rel="stylesheet" href="./css/site-shell.css">
+    <link rel="icon" href="./images/icon/icon.ico">
     <script src="./js/config.js"></script>
     <script src="./js/cars-data.js"></script>
     <script src="./js/ripple.js" defer></script>
@@ -290,10 +291,24 @@
                     <dd id="fee-offline">¥0</dd>
                 </div>
             </dl>
-            <p class="order-fee-promo">
-                <span class="order-fee-promo-tag" id="promo-tag">限时活动</span>
-                <span id="promo-text">下单后分享行程给好友，最高可返 400 元奖励金</span>
-            </p>
+            <div class="order-fee-promo">
+                <div class="order-fee-promo-head">
+                    <span class="order-fee-promo-tag" id="promo-tag">限时活动</span>
+                    <span class="order-fee-promo-countdown">
+                        <span class="order-fee-promo-countdown-label" id="promo-countdown-label">距活动结束</span>
+                        <span class="order-fee-promo-countdown-time" id="promo-countdown">06:00:00</span>
+                    </span>
+                </div>
+                <p class="order-fee-promo-body">
+                    <span class="order-fee-promo-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 11v5M12 7.6v.2" />
+                        </svg>
+                    </span>
+                    <span id="promo-text">下单后分享行程给好友，最高可返 400 元奖励金</span>
+                </p>
+            </div>
             <div class="order-fee-cancel">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="8.2" />

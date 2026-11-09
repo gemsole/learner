@@ -1040,26 +1040,94 @@
 
 /* ==================== 费用区补充：限时活动 + 免费取消 ==================== */
 
+/* 限时活动：珊瑚红作为促销信号色，与钴蓝主色区隔，形成视觉锚点 */
 .order-fee-promo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     margin-top: 14px;
-    font-size: 12.5px;
-    letter-spacing: 0.5px;
-    color: var(--muted);
+    padding: 14px 16px 15px;
+    background: linear-gradient(135deg, rgba(255, 90, 95, 0.07), rgba(255, 107, 107, 0.03));
+    border: 1px solid rgba(255, 90, 95, 0.28);
+    box-shadow: 0 6px 18px rgba(255, 90, 95, 0.08);
 }
 
-/* 活动角标：实心钴蓝小芯片，与车牌芯片同族 */
+.order-fee-promo-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* 活动角标：珊瑚渐变药丸 + 柔光呼吸，呼应「限时」紧迫感 */
 .order-fee-promo-tag {
     flex-shrink: 0;
-    padding: 2px 8px;
-    background-color: var(--accent);
-    border-radius: 3px;
+    padding: 3px 12px 4px;
+    background: linear-gradient(135deg, #ff5a5f, #ff8a5f);
+    border-radius: 999px;
     color: #ffffff;
     font-size: 11.5px;
     font-weight: 700;
+    letter-spacing: 1.5px;
+    box-shadow: 0 3px 10px rgba(255, 90, 95, 0.4);
+    animation: promo-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes promo-pulse {
+    0%, 100% { box-shadow: 0 3px 10px rgba(255, 90, 95, 0.4); }
+    50% { box-shadow: 0 3px 18px rgba(255, 90, 95, 0.7); }
+}
+
+/* 倒计时：技术字体数字，珊瑚色描边小芯片 */
+.order-fee-promo-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-fee-promo-countdown-label {
+    font-size: 12px;
     letter-spacing: 1px;
+    color: var(--muted);
+}
+
+.order-fee-promo-countdown-time {
+    padding: 2px 9px;
+    background-color: rgba(255, 90, 95, 0.1);
+    border: 1px solid rgba(255, 90, 95, 0.4);
+    color: #e6454a;
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.order-fee-promo-body {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #c23b3f;
+}
+
+/* 信息图标：珊瑚红描边圆圈 + 叹号，与图片中的 i 图标语义一致 */
+.order-fee-promo-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-fee-promo-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #ff5a5f;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .order-fee-cancel {
@@ -1417,6 +1485,14 @@
     .notices li {
         padding-right: 4px;
     }
+
+    .order-fee-promo-head {
+        gap: 10px;
+    }
+
+    .order-fee-promo-countdown-label {
+        display: none;
+    }
 }
 
 /* ==================== 动效偏好 ==================== */
@@ -1427,6 +1503,10 @@
     .order-pkg.is-active,
     .order-submit:hover {
         transform: none;
+    }
+
+    .order-fee-promo-tag {
+        animation: none;
     }
 }
 

@@ -138,11 +138,41 @@
         if (PROMO) {
             setText("promo-tag", PROMO.tag);
             setText("promo-text", PROMO.text);
+            /* 倒计时标签来自配置 */
+            setText("promo-countdown-label", PROMO.countdownLabel || "距活动结束");
+            startCountdown(PROMO.countdownHours || 0);
         }
         if (FREE_CANCEL) {
             setText("cancel-title", FREE_CANCEL.title);
             setText("cancel-late", FREE_CANCEL.lateNote);
         }
+    }
+
+    /* 限时倒计时：根据配置的小时数算出截止时间，每秒刷新一次展示 */
+    var countdownTimer = null;
+    function startCountdown(hours) {
+        if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+        var el = document.getElementById("promo-countdown");
+        if (!el || !hours) return;
+
+        var deadline = Date.now() + hours * 3600 * 1000;
+
+        function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+        function tick() {
+            var diff = Math.max(0, deadline - Date.now());
+            var h = Math.floor(diff / 3600000);
+            var m = Math.floor((diff % 3600000) / 60000);
+            var s = Math.floor((diff % 60000) / 1000);
+            el.textContent = pad(h) + ":" + pad(m) + ":" + pad(s);
+            if (diff <= 0) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+        }
+
+        tick();
+        countdownTimer = setInterval(tick, 1000);
     }
 
     renderPromo();
