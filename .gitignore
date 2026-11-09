@@ -8,3 +8,4 @@ phone/
 test/
 Web/.trae-html-share-packages/
 yolo/
+**/dist/
