@@ -56,14 +56,12 @@ class BasicBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    """支持自定义基础通道数的 ResNet 架构"""
-
     def __init__(
         self,
         block,
         layers,
         num_classes,
-        base_channels=64,  # 新增：基础通道数（原版为 64，可设为 32 或 16）
+        base_channels=64,
         zero_init_residual=False,
     ):
         super().__init__()
@@ -139,10 +137,10 @@ def resnet18(num_classes=10, base_channels=32):
 
 
 if __name__ == "__main__":
-    print("CUDA 可用:", torch.cuda.is_available())
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = resnet18()
     tool = Tools("config.toml", model, device=device)
+    tool.log(f"use {device}")
     tool.load()
     for epoch in range(1, 21):
         print(f"Epoch {epoch}")
