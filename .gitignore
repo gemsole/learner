@@ -1,11 +1,7 @@
 *.pth
-account/
-# DataExcavate/
-# Deep Learning/data/
 **/data/
 **/__pycache__/
-phone/
-test/
 Web/.trae-html-share-packages/
 yolo/
 **/dist/
+embed/
