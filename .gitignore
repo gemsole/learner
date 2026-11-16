@@ -5,3 +5,8 @@ yolo/
 deep/
 .*/*
 **/dist/
+
+Web/.trae-html-share-packages/
+Web/.screenshots/
+Web/seventh week/.trae-html-share-packages/
+Web/seventh week/.screenshots/
