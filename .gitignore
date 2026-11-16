@@ -1,8 +1,7 @@
 *.pth
 **/data/
 **/__pycache__/
-Web/.trae-html-share-packages/
 yolo/
 deep/
-.*/
+**/.*/
 **/dist/
