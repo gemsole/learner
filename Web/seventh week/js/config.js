@@ -180,6 +180,54 @@ var APP_CONFIG = (function () {
         lateNote: "超过取车时间取消或未取车，将不退还预付款"
     };
 
+    /* 闪租页：活动横幅（角标、标题、步骤、按钮、倒计时） */
+    var FLASH_PROMO = {
+        tag: "FLASH OFFER",
+        titleLead: "首单闪租 立减",
+        titleHighlight: "100 元",
+        desc: "分享首驾体验，上传人车合照再得 100 积分",
+        steps: [
+            { no: "01", text: "扫码选车" },
+            { no: "02", text: "到店即取" }
+        ],
+        ctaText: "立即闪租",
+        ctaHref: "#flash-fleet",
+        rulesText: "查看活动规则",
+        rulesHref: "#",
+        countdownLabel: "活动剩余",
+        countdownHours: 12,
+        visualTag: "FLASH · 24H"
+    };
+
+    /* 闪租页：车型展示区（标题 + 左侧主视觉卡 + 参与车辆） */
+    var FLASH_SHOWCASE = {
+        title: "百余款车，任您挑选",
+        description: "从城市代步到商务接待，总有一款适合您",
+        tag: "FLASH FLEET · 8 UNITS",
+        features: [
+            {
+                variant: "tall",
+                img: "./images/images1.png",
+                tag: "FIRST DRIVE · 01",
+                big: "百余款",
+                sub: "城市代步 · 商务接待 · 自驾出游"
+            },
+            {
+                variant: "strip",
+                img: "./images/images2.png",
+                tag: "SELF SERVICE · 02",
+                big: "24H",
+                sub: "扫码自助取还，随取随走"
+            }
+        ],
+        /* 参与闪租的车辆 id，数据取自 js/cars-data.js */
+        carIds: [
+            "audi-a1", "benz-v", "porsche-cayenne", "bmw-z4",
+            "audi-tt", "ferrari-458", "tesla-model3", "benz-s-class"
+        ],
+        priceUnit: "/天"
+    };
+
     var data = {
         phone: PHONE,
         /* 取还车时段档位：国际页预订表单与订单页弹层共用 */
@@ -200,7 +248,10 @@ var APP_CONFIG = (function () {
         /* 租车流程 / 订单条款 / 注意事项页签内容 */
         orderFlow: ORDER_FLOW,
         orderTerms: ORDER_TERMS,
-        orderNotices: ORDER_NOTICES
+        orderNotices: ORDER_NOTICES,
+        /* 闪租页活动横幅与车型展示区 */
+        flashPromo: FLASH_PROMO,
+        flashShowcase: FLASH_SHOWCASE
     };
 
     /* 统一读取接口 */

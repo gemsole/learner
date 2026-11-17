@@ -43,7 +43,7 @@ var CARS_DATA = [
         id: "porsche-cayenne",
         list: { type: "suv", seats: "5-", brand: "porsche", deposit: 0, worry: 1, gear: 1, browse: "41", latest: "1 分钟前" },
         name: "保时捷卡宴", category: "硬派越野", plate: "京N·71B30",
-        img: "./images/fast-car5.jpg",
+        img: "./images/car-cayenne.jpg",
         highlights: ["越野车", "5门5座", "3.0T", "专业四驱"],
         listSpace: "后备箱宽大，建议乘坐 5 人 + 3 行李箱",
         specs: ["自动挡", "越野车", "5门5座", "3.0T"],
@@ -58,7 +58,7 @@ var CARS_DATA = [
         id: "bmw-z4",
         list: { type: "conv", seats: "5-", brand: "bmw", deposit: 1, worry: 0, gear: 0, browse: "27", latest: "5 分钟前" },
         name: "宝马Z4", category: "敞篷个性", plate: "浙B·56T19",
-        img: "./images/fast-car6.jpg",
+        img: "./images/car-z4.jpg",
         highlights: ["个性车", "2门2座", "2.0L", "海边兜风首选"],
         listSpace: "双人座舱，建议乘坐 2 人 + 1 行李箱",
         specs: ["手动挡", "个性车", "2门2座", "2.0L"],
@@ -98,5 +98,35 @@ var CARS_DATA = [
         orderNo: "YX20261121-3064", orderTime: "2026-10-30 21:15",
         pickup: { date: "2026-11-21", time: "09:00", place: "澳大利亚 悉尼- 悉尼金斯福德·史密斯机场", store: "航站楼1", hours: "07:00-21:00" },
         ret: { date: "2026-11-23", time: "09:00", place: "澳大利亚 悉尼- 悉尼金斯福德·史密斯机场", store: "航站楼1", hours: "07:00-21:00" }
+    },
+    {
+        id: "tesla-model3",
+        list: { type: "hot", seats: "5-", brand: "tesla", deposit: 0, worry: 1, gear: 1, browse: "63", latest: "刚刚" },
+        name: "特斯拉Model3", category: "纯电", plate: "京A·D6688",
+        img: "./images/car-model3.jpg",
+        highlights: ["纯电轿车", "4门5座", "后驱", "静谧好开"],
+        listSpace: "前后备箱，建议乘坐 5 人 + 2 行李箱",
+        specs: ["自动挡", "纯电轿车", "4门5座", "后驱"],
+        space: "电驱安静，城市通勤顺滑",
+        suggest: "建议乘坐 5 人 + 2 行李箱",
+        price: 460, days: 3, pkgFees: [0, 60, 120, 180],
+        orderNo: "YX20261108-1180", orderTime: "2026-10-30 10:05",
+        pickup: { date: "2026-11-08", time: "09:30", place: "日本 东京- 东京成田国际机场", store: "航站楼1", hours: "07:00-22:00" },
+        ret: { date: "2026-11-11", time: "09:30", place: "日本 东京- 东京成田国际机场", store: "航站楼1", hours: "07:00-22:00" }
+    },
+    {
+        id: "benz-s-class",
+        list: { type: "mpv", seats: "5-", brand: "benz", deposit: 0, worry: 1, gear: 1, browse: "22", latest: "6 分钟前" },
+        name: "奔驰S级", category: "豪华轿车", plate: "沪C·66M29",
+        img: "./images/car-sclass.jpg",
+        highlights: ["豪华轿车", "4门5座", "3.0T", "商务接待"],
+        listSpace: "后排宽裕，建议乘坐 4 人 + 2 行李箱",
+        specs: ["自动挡", "豪华轿车", "4门5座", "3.0T"],
+        space: "后排宽敞，商务接待体面",
+        suggest: "建议乘坐 4 人 + 2 行李箱",
+        price: 1280, days: 3, pkgFees: [0, 160, 320, 480],
+        orderNo: "YX20261110-2093", orderTime: "2026-10-30 12:18",
+        pickup: { date: "2026-11-10", time: "10:00", place: "德国 法兰克福- 法兰克福国际机场", store: "航站楼2", hours: "06:00-23:00" },
+        ret: { date: "2026-11-13", time: "10:00", place: "德国 法兰克福- 法兰克福国际机场", store: "航站楼2", hours: "06:00-23:00" }
     }
 ];

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>闪租 | 悦行网</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/flash.css?v=6">
+    <link rel="stylesheet" href="./css/site-shell.css">
+    <link rel="icon" href="./images/icon/icon.ico">
+    <script src="./js/config.js?v=4"></script>
+    <script src="./js/cars-data.js?v=4"></script>
+    <script src="./js/ripple.js" defer></script>
+    <script src="./js/click-fx.js" defer></script>
+    <script src="./js/flash.js?v=4" defer></script>
+</head>
+
+<body class="page-flash">
+
+    <!-- 头部导航：共享区块，由 js/shell.js 在此原位渲染（active 按当前页自动判定） -->
+    <script src="./js/shell.js" data-shell="header"></script>
+
+    <div class="site-shell">
+
+        <!-- 活动横幅：荧光绿通栏，文案与倒计时由 js/flash.js 按配置填充 -->
+        <section class="flash-banner">
+            <div class="flash-banner-inner">
+                <div class="flash-copy">
+                    <span class="flash-tag" id="flash-tag">FLASH OFFER</span>
+                    <h1 class="flash-title">
+                        <span id="flash-title-lead">首单闪租 立减</span>
+                        <strong class="flash-hl" id="flash-title-hl">100 元</strong>
+                    </h1>
+                    <p class="flash-desc" id="flash-desc">分享首驾体验，上传人车合照再得 100 积分</p>
+
+                    <!-- 两步行动路径由配置渲染 -->
+                    <div class="flash-steps" id="flash-steps"></div>
+
+                    <div class="flash-actions">
+                        <a class="flash-cta" id="flash-cta" href="#flash-fleet">立即闪租</a>
+                        <a class="flash-rules" id="flash-rules" href="#">查看活动规则</a>
+                    </div>
+                </div>
+
+                <div class="flash-visual">
+                    <svg class="flash-svg" viewBox="0 0 360 170" role="img" aria-label="闪租车辆示意">
+                        <g class="flash-speed">
+                            <line x1="18" y1="62" x2="98" y2="62" />
+                            <line x1="6" y1="84" x2="76" y2="84" />
+                            <line x1="26" y1="106" x2="112" y2="106" />
+                        </g>
+                        <g class="flash-readout">
+                            <text x="352" y="26" text-anchor="end" id="flash-visual-tag">FLASH · 24H</text>
+                            <line x1="212" y1="36" x2="352" y2="36" />
+                        </g>
+                        <g transform="translate(96 52) scale(2.4)">
+                            <path fill-rule="evenodd"
+                                d="M3 26.5 C3 23.6 5.2 22 9.5 21.2 L14.5 20.6 L19.5 15.2 C21 13.5 23.5 12.5 26.5 12.5 L35 12.5 C39 12.5 42 13.7 44.5 15.9 L49 19.7 L54 20.5 C58 21.3 60.5 22.9 60.5 25 L60.5 26.5 L3 26.5 Z M22.8 18.3 L26.2 14.7 C27 13.9 28 13.5 29.2 13.5 L33.2 13.5 L33.2 18.3 Z M36.2 13.7 L39.8 13.7 C42 13.7 43.8 14.5 45.2 15.9 L47.6 18.3 L36.2 18.3 Z" />
+                            <path fill-rule="evenodd"
+                                d="M17.5 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M17.5 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                            <path fill-rule="evenodd"
+                                d="M46 26.5 m-4.8 0 a4.8 4.8 0 1 0 9.6 0 a4.8 4.8 0 1 0 -9.6 0 M46 26.5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0" />
+                        </g>
+                    </svg>
+
+                    <div class="flash-countdown">
+                        <span class="flash-countdown-label" id="flash-countdown-label">活动剩余</span>
+                        <span class="flash-countdown-time" id="flash-countdown">12:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 车型展示区：左侧主视觉卡 + 右侧车辆卡组成的马赛克网格 -->
+        <section class="flash-fleet" id="flash-fleet">
+            <div class="section-head flash-head">
+                <span class="section-icon">›</span>
+                <h2 class="section-title" id="flash-section-title">百余款车，任您挑选</h2>
+                <span class="section-rule"></span>
+                <span class="section-tag" id="flash-section-tag">FLASH FLEET · 8 UNITS</span>
+            </div>
+            <p class="flash-section-desc" id="flash-section-desc">从城市代步到商务接待，总有一款适合您</p>
+
+            <!-- 主视觉卡与车辆卡均按配置渲染 -->
+            <div class="flash-mosaic" id="flash-mosaic"></div>
+        </section>
+
+        <!-- 页脚（含跑马灯）：共享区块，由 js/shell.js 在此原位渲染 -->
+        <script src="./js/shell.js" data-shell="footer"></script>
+
+    </div><!-- /site-shell -->
+
+</body>
+
+</html>

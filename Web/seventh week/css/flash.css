@@ -1,0 +1,678 @@
+/* ==================================================================
+   闪租页
+   骨架：荧光绿通栏活动横幅 + 浅色车型马赛克区。
+   视觉语言延续首页「车队控制台」：墨色、细线、切角按钮、技术字体，
+   本页只新增一个专用信号色——荧光黄绿，用于横幅、价签与状态点。
+   ================================================================== */
+
+:root {
+    /* 闪租专用点缀色：只在横幅、价签、状态点、STEP 编号上出现 */
+    --flash: #c6ff2e;
+    --flash-deep: #9fd11c;
+    --flash-ink: #101708;
+}
+
+/* ==================== 活动横幅 ==================== */
+
+.flash-banner {
+    position: relative;
+    overflow: hidden;
+    background-image: linear-gradient(118deg, #cbf53e 0%, #b4e327 46%, #97c912 100%);
+}
+
+/* 斜向细纹：把大面积纯色压成有织感的控制台面板 */
+.flash-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(135deg,
+            rgba(16, 23, 8, 0.055) 0,
+            rgba(16, 23, 8, 0.055) 1px,
+            transparent 1px,
+            transparent 14px);
+    pointer-events: none;
+}
+
+.flash-banner-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+    gap: clamp(20px, 3vw, 44px);
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(36px, 4vw, 56px) 16px;
+}
+
+.flash-tag {
+    display: inline-block;
+    padding: 4px 11px 5px;
+    border: 1px solid rgba(16, 23, 8, 0.7);
+    background-color: rgba(255, 255, 255, 0.3);
+    font-family: var(--font-tech);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    line-height: 1;
+    color: var(--flash-ink);
+}
+
+.flash-title {
+    margin-top: 16px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    line-height: 1.22;
+    color: var(--flash-ink);
+}
+
+/* 关键词：白底墨字贴纸，轻微倾斜，成为横幅的视觉落点 */
+.flash-hl {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 0 0.2em;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 0 rgba(16, 23, 8, 0.16);
+    font-size: 1.16em;
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: 1px;
+    transform: skew(-6deg);
+    white-space: nowrap;
+}
+
+.flash-desc {
+    margin-top: 14px;
+    font-size: 13.5px;
+    letter-spacing: 0.6px;
+    line-height: 1.7;
+    color: rgba(16, 23, 8, 0.82);
+}
+
+/* 两步行动路径：细线芯片 + 箭头，技术编号在前 */
+.flash-steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.flash-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 5px 12px 6px;
+    border: 1px solid rgba(16, 23, 8, 0.7);
+    background-color: rgba(255, 255, 255, 0.32);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--flash-ink);
+    white-space: nowrap;
+}
+
+.flash-step-no {
+    font-family: var(--font-tech);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(16, 23, 8, 0.62);
+}
+
+.flash-step-arrow {
+    font-family: var(--font-tech);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(16, 23, 8, 0.7);
+}
+
+.flash-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin-top: 26px;
+}
+
+/* 主按钮：墨底荧光字，切角与全站一致 */
+.flash-cta {
+    display: inline-block;
+    height: 44px;
+    padding: 0 30px;
+    line-height: 44px;
+    background-color: var(--flash-ink);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    color: var(--flash);
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.flash-cta:link,
+.flash-cta:visited,
+.flash-cta:hover,
+.flash-cta:active {
+    color: var(--flash);
+}
+
+.flash-cta:hover {
+    background-color: #1c290f;
+    transform: translateY(-2px);
+}
+
+.flash-rules {
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(16, 23, 8, 0.45);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: rgba(16, 23, 8, 0.86);
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.flash-rules:link,
+.flash-rules:visited,
+.flash-rules:active {
+    color: rgba(16, 23, 8, 0.86);
+}
+
+.flash-rules:hover {
+    color: var(--flash-ink);
+    border-bottom-color: var(--flash-ink);
+}
+
+/* 右侧：自绘车辆速度线 + 倒计时读数 */
+.flash-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.flash-svg {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+}
+
+.flash-svg path {
+    fill: var(--flash-ink);
+}
+
+.flash-speed line {
+    stroke: rgba(16, 23, 8, 0.42);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 34 52;
+    animation: flash-dash 2.6s linear infinite;
+}
+
+@keyframes flash-dash {
+    to {
+        stroke-dashoffset: -86;
+    }
+}
+
+.flash-readout text {
+    fill: rgba(16, 23, 8, 0.75);
+    font-family: var(--font-tech);
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.flash-readout line {
+    stroke: rgba(16, 23, 8, 0.35);
+}
+
+.flash-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border: 1px solid rgba(16, 23, 8, 0.7);
+    background-color: rgba(255, 255, 255, 0.34);
+    white-space: nowrap;
+}
+
+.flash-countdown-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    color: rgba(16, 23, 8, 0.72);
+}
+
+.flash-countdown-time {
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--flash-ink);
+}
+
+/* ==================== 车型展示区 ==================== */
+
+/* 与首页 / 国际租车一致：不铺底色，直接露出 body 固定的黄昏沿海公路背景 */
+.flash-fleet {
+    background-color: transparent;
+    padding: clamp(44px, 5vw, 68px) max(16px, calc((100% - 1160px) / 2)) clamp(52px, 5vw, 76px);
+    scroll-margin-top: 96px;
+}
+
+.flash-head {
+    margin-bottom: 6px;
+}
+
+/* 标题头沿用首页的白字投影版本，保证在照片背景上可读 */
+.flash-section-desc {
+    margin: 0 0 24px 48px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.64);
+    text-shadow: 0 1px 8px rgba(3, 10, 22, 0.5);
+}
+
+/* 马赛克网格：左列两张主视觉卡（各占两行），右侧 2×4 共 8 张车辆卡 */
+.flash-mosaic {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr 1fr;
+    grid-template-rows: repeat(4, minmax(185px, 1fr));
+    gap: 16px;
+}
+
+/* 主视觉卡：图片压深，大字落在底部 */
+.flash-feature {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 20px;
+    background-color: var(--ink-2);
+    border: 1px solid var(--line-dark);
+    min-height: 0;
+}
+
+.flash-feature--tall {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+.flash-feature--strip {
+    grid-column: 1;
+    grid-row: 3 / span 2;
+    padding: 16px 20px;
+}
+
+.flash-feature-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flash-feature:hover .flash-feature-img {
+    transform: scale(1.05);
+}
+
+.flash-feature::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(180deg,
+            rgba(7, 12, 20, 0.06) 0%,
+            rgba(7, 12, 20, 0.5) 52%,
+            rgba(7, 12, 20, 0.92) 100%);
+    pointer-events: none;
+}
+
+.flash-feature-body {
+    position: relative;
+    z-index: 2;
+}
+
+.flash-feature-tag {
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 9px;
+    border-left: 2px solid var(--flash);
+    font-family: var(--font-tech);
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.flash-feature-big {
+    display: block;
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    color: #ffffff;
+    text-shadow: 0 2px 16px rgba(3, 10, 22, 0.55);
+}
+
+.flash-feature--strip .flash-feature-big {
+    font-size: clamp(22px, 2vw, 28px);
+    letter-spacing: 2px;
+}
+
+.flash-feature-sub {
+    display: block;
+    margin-top: 9px;
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.76);
+}
+
+/* 车辆卡：父级相对定位，车名与价签绝对定位在左侧，
+   车辆图绝对定位铺满右侧整块，整车完整入镜，不被遮挡也不会裁掉车头 */
+.flash-car {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    min-height: 190px;
+    background-color: #ffffff;
+    border: 1px solid var(--line);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flash-car::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 2px;
+    background-color: var(--flash-deep);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.flash-car:hover {
+    transform: translateY(-3px);
+    border-color: rgba(159, 209, 28, 0.72);
+    box-shadow: 0 18px 38px rgba(9, 18, 36, 0.14);
+}
+
+.flash-car:hover::before {
+    transform: scaleX(1);
+}
+
+/* 文字组：车型与价签上下紧贴，默认居左垂直居中 */
+.flash-car-copy {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+    padding-left: 16px;
+    pointer-events: none;
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.35s ease;
+}
+
+/* 克隆文字组：固定在卡片右半区，默认停在右侧屏幕外，悬停时整体滑入 */
+.flash-car-copy--alt {
+    left: auto;
+    right: 0;
+    width: 42%;
+    padding-left: 12px;
+    padding-right: 12px;
+    transform: translateX(130%);
+    opacity: 0;
+}
+
+.flash-car-copy--alt .flash-car-name {
+    max-width: 100%;
+}
+
+/* 悬停：原文字组向左退出，克隆组从右侧进入并落在右半区 */
+.flash-car:hover .flash-car-copy {
+    transform: translateX(-130%);
+    opacity: 0;
+}
+
+.flash-car:hover .flash-car-copy--alt {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* 车名：单行「分类 | 车型」，荧光绿强调字 */
+.flash-car-name {
+    max-width: calc(44% - 16px);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 1.3;
+    color: #7aab10;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.flash-car-name em {
+    margin: 0 6px;
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(122, 171, 16, 0.5);
+}
+
+/* 价签：荧光绿贴纸，左上收角 + 硬投影，沿用第二版的票签造型 */
+.flash-price {
+    display: inline-flex;
+    align-items: baseline;
+    padding: 4px 11px 6px;
+    background-color: var(--flash);
+    border-radius: 3px 14px 14px 14px;
+    box-shadow: 4px 4px 0 rgba(16, 23, 8, 0.16);
+    font-family: var(--font-tech);
+    font-variant-numeric: tabular-nums;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+    color: var(--flash-ink);
+}
+
+.flash-price::before {
+    content: "¥";
+    margin-right: 2px;
+    font-size: 10.5px;
+    font-weight: 600;
+    vertical-align: 2px;
+    opacity: 0.66;
+}
+
+.flash-price span {
+    margin-left: 2px;
+    font-family: var(--font-cn);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: rgba(16, 23, 8, 0.66);
+}
+
+/* 车辆图：宽度固定不变，整块从右侧平移滑到左侧（不会边滑边缩放） */
+.flash-car-media {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 58%;
+    overflow: hidden;
+    transform: translateX(72.4%);
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.flash-car:hover .flash-car-media {
+    transform: translateX(0);
+}
+
+.flash-car-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter: saturate(0.95);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.flash-car:hover .flash-car-media img {
+    transform: scale(1.03);
+    filter: saturate(1.05);
+}
+
+/* ==================== 响应式 ==================== */
+
+@media (max-width: 992px) {
+    .flash-banner-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 34px 16px 38px;
+    }
+
+    /* 平板：车辆示意与倒计时并排，压缩横幅高度 */
+    .flash-visual {
+        flex-direction: row;
+        justify-content: center;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+
+    .flash-svg {
+        width: 54%;
+    }
+
+    .flash-mosaic {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        grid-auto-rows: minmax(190px, auto);
+    }
+
+    .flash-feature--tall,
+    .flash-feature--strip {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    .flash-feature--tall {
+        min-height: 240px;
+    }
+
+    .flash-feature--strip {
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    .flash-banner-inner {
+        padding: 28px 16px 32px;
+    }
+
+    .flash-title {
+        font-size: 26px;
+        letter-spacing: 0.5px;
+    }
+
+    .flash-hl {
+        margin-left: 6px;
+        font-size: 1.08em;
+    }
+
+    .flash-desc {
+        font-size: 12.5px;
+    }
+
+    .flash-step {
+        padding: 4px 10px 5px;
+        font-size: 12px;
+    }
+
+    .flash-visual {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .flash-svg {
+        width: 100%;
+    }
+
+    .flash-cta {
+        height: 42px;
+        padding: 0 24px;
+        line-height: 42px;
+        font-size: 13px;
+    }
+
+    .flash-mosaic {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        grid-auto-rows: auto;
+    }
+
+    .flash-car {
+        min-height: 190px;
+    }
+
+    .flash-feature--tall {
+        min-height: 220px;
+    }
+
+    .flash-section-desc {
+        margin-left: 0;
+    }
+}
+
+/* ==================== 动效偏好 ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .flash-speed line {
+        animation: none;
+    }
+
+    .flash-cta:hover,
+    .flash-car:hover,
+    .flash-feature:hover .flash-feature-img,
+    .flash-car:hover .flash-car-media img {
+        transform: none;
+    }
+
+    /* 关闭悬停时的文字左出右进与车图滑动，保持默认布局 */
+    .flash-car-copy,
+    .flash-car-media {
+        transition: none;
+    }
+
+    .flash-car:hover .flash-car-copy {
+        transform: none;
+        opacity: 1;
+    }
+
+    .flash-car:hover .flash-car-copy--alt {
+        transform: translateX(130%);
+        opacity: 0;
+    }
+
+    .flash-car:hover .flash-car-media {
+        transform: translateX(72.4%);
+    }
+}

@@ -19,7 +19,7 @@
     var NAV_ITEMS = [
         { href: "./index.html", label: "首页", match: "index" },
         { href: "./international.html", label: "国际租车", match: "international" },
-        { href: "#", label: "闪租", match: "" },
+        { href: "./flash.html", label: "闪租", match: "flash" },
         { href: "#", label: "服务项目", match: "" },
         { href: "#", label: "关于我们", match: "" }
     ];
@@ -41,9 +41,10 @@
         { title: "关于服务", links: ["服务时间", "短租及可选服务"] }
     ];
 
-    /* 当前页对应的导航高亮项：首页 → index；订单页/国际页 → international */
+    /* 当前页对应的导航高亮项：闪租 → flash；订单页/国际页 → international；其余 → index */
     function activeMatch() {
         var path = location.pathname.toLowerCase();
+        if (path.indexOf("flash") !== -1) return "flash";
         if (path.indexOf("order") !== -1 || path.indexOf("international") !== -1) return "international";
         return "index";
     }
