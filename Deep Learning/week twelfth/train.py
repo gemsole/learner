@@ -26,4 +26,6 @@ def train(epochs, model, X_train, y_train, criterion, optimizer,
         history.append(avg_loss)
         if epoch == 0 or (epoch + 1) % 20 == 0:
             print(f"Epoch {epoch + 1}/{epochs}, Loss: {avg_loss:.6f}")
+            with open("train_loss.txt", "a") as f:
+                f.write(f"Epoch {epoch + 1}/{epochs}, Loss: {avg_loss:.6f}\n")
     return history

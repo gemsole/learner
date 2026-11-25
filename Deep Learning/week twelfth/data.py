@@ -3,14 +3,12 @@ import pandas as pd
 import torch
 from sklearn.preprocessing import MinMaxScaler
 
+
+target = "cnt"
 features = ["season", "yr", "mnth", "weekday", "holiday", "workingday", "weathersit",
             "temp", "atemp", "hum", "windspeed"]
-target = "cnt"
-
 
 # ---------------------- 特征工程 ----------------------
-# 在原始特征基础上补充：年内周期的 sin/cos 编码 + 客流滞后特征
-# 滞后特征只使用当天之前的值，不会泄漏目标当天的 cnt
 def _build_features(df, base_features, use_lag=True):
     feat = df[base_features].copy()
 
@@ -25,31 +23,30 @@ def _build_features(df, base_features, use_lag=True):
         feat["cnt_lag1"] = cnt.shift(1)
         feat["cnt_lag7"] = cnt.shift(7)
         feat["cnt_roll7"] = cnt.shift(1).rolling(7).mean()
+    print(feat.columns)
+    print(feat.head())
     return feat
 
 
 # ---------------------- 时序数据集构造 ----------------------
-# 当日预测：窗口为 [t-look_back+1, t]，标签为窗口最后一天的 cnt
 def create_sequences(features_scaled, target_scaled, look_back):
     X, y, pos = [], [], []
-    for i in range(look_back - 1, len(features_scaled)):
+    for i in range(look_back - 1, len(features_scaled) - 1):
         X.append(features_scaled[i - look_back + 1:i + 1])
-        y.append(target_scaled[i])
+        y.append(target_scaled[i + 1])
         pos.append(i)
     return np.array(X), np.array(y), np.array(pos)
 
 
 # ---------------------- 数据加载 ----------------------
-def load_data(path="./dataset/day.csv", features=features, look_back=14, split=0.9):
+def load_data(path="./dataset/day.csv", look_back=7, split=0.9):
     df = pd.read_csv(path)
     frame = _build_features(df, features).dropna()
     y_raw = df.loc[frame.index, target].values.reshape(-1, 1)
 
-    # 按原始时间顺序划分，测试段之前的历史序列仍可用于构造输入窗口
     split_idx = int(len(df) * split)
     train_count = int((frame.index < split_idx).sum())
 
-    # 归一化参数只用训练段计算，避免测试集信息泄漏
     X_scaler = MinMaxScaler(feature_range=(0, 1)).fit(frame.iloc[:train_count].values)
     y_scaler = MinMaxScaler(feature_range=(0, 1)).fit(y_raw[:train_count])
 
