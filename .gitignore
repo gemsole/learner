@@ -5,6 +5,7 @@ yolo/
 deep/
 .*/*
 **/dist/
+robot pet/
 
 Web/.trae-html-share-packages/
 Web/.screenshots/

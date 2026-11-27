@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pelican Cyclist · 海边公路</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #141719; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  svg { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <!-- ==================== defs：渐变与复用定义 ==================== -->
+  <defs>
+    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2DFAE"/>
+      <stop offset="1" stop-color="#C2DAD0"/>
+    </linearGradient>
+    <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7FB5B0"/>
+      <stop offset="1" stop-color="#457F7C"/>
+    </linearGradient>
+    <radialGradient id="glowG" cx="0.12" cy="0.16" r="0.85">
+      <stop offset="0" stop-color="#FFE9C0" stop-opacity="0.16"/>
+      <stop offset="0.4" stop-color="#FFE9C0" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFE9C0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vigG" cx="0.5" cy="0.5" r="0.72">
+      <stop offset="0.55" stop-color="#16242B" stop-opacity="0"/>
+      <stop offset="1" stop-color="#16242B" stop-opacity="0.22"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ==================== bg-sky：天空层 Y 0–240（暖黄→浅青渐变 + 左上日光 + 扁平云带滚动） ==================== -->
+  <g id="bg-sky">
+    <rect x="0" y="0" width="1280" height="240" fill="url(#skyG)"/>
+    <circle cx="176" cy="108" r="130" fill="#FBE4B4" opacity="0.18"/>
+    <circle cx="176" cy="108" r="88" fill="#FBE4B4" opacity="0.5"/>
+    <circle cx="176" cy="108" r="50" fill="#F7D98C" opacity="0.9"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-1280 0" dur="40s" repeatCount="indefinite"/>
+      <g fill="#F3EAD9" opacity="0.88">
+        <rect x="160" y="48" width="340" height="20" rx="10"/>
+        <rect x="600" y="116" width="420" height="24" rx="12"/>
+        <rect x="980" y="72" width="280" height="18" rx="9"/>
+        <rect x="280" y="182" width="360" height="14" rx="7" opacity="0.55"/>
+        <rect x="1440" y="48" width="340" height="20" rx="10"/>
+        <rect x="1880" y="116" width="420" height="24" rx="12"/>
+        <rect x="2260" y="72" width="280" height="18" rx="9"/>
+        <rect x="1560" y="182" width="360" height="14" rx="7" opacity="0.55"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== bg-sea：远景海面 Y 240–380（左上波光 + 细微波纹滚动 + 远处小椰树剪影视差滚动） ==================== -->
+  <g id="bg-sea">
+    <rect x="0" y="240" width="1280" height="140" fill="url(#seaG)"/>
+    <ellipse cx="240" cy="300" rx="280" ry="64" fill="#EFC46B" opacity="0.14"/>
+    <g stroke="#EFC46B" stroke-width="8" stroke-linecap="round">
+      <animate attributeName="opacity" values="0.55;0.9;0.55" dur="3.2s" repeatCount="indefinite"/>
+      <path d="M60 268 H190" fill="none"/>
+      <path d="M120 292 H280" fill="none"/>
+      <path d="M200 318 H360" fill="none"/>
+      <path d="M90 336 H250" fill="none"/>
+      <path d="M300 344 H430" fill="none"/>
+      <path d="M420 300 H540" fill="none"/>
+      <path d="M240 276 H380" fill="none"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-320 0" dur="6s" repeatCount="indefinite"/>
+      <path d="M-320 280 Q-240 274 -160 280 T0 280 T160 280 T320 280 T480 280 T640 280 T800 280 T960 280 T1120 280 T1280 280 T1440 280 T1600 280 T1760 280" fill="none" stroke="#A8CFCA" stroke-width="2.2" opacity="0.5"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-320 0" dur="4.5s" repeatCount="indefinite"/>
+      <path d="M-320 322 Q-240 314 -160 322 T0 322 T160 322 T320 322 T480 322 T640 322 T800 322 T960 322 T1120 322 T1280 322 T1440 322 T1600 322 T1760 322" fill="none" stroke="#A8CFCA" stroke-width="2.2" opacity="0.42"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-320 0" dur="3.5s" repeatCount="indefinite"/>
+      <path d="M-320 354 Q-240 349 -160 354 T0 354 T160 354 T320 354 T480 354 T640 354 T800 354 T960 354 T1120 354 T1280 354 T1440 354 T1600 354 T1760 354" fill="none" stroke="#A8CFCA" stroke-width="2" opacity="0.32"/>
+    </g>
+    <!-- 远处右侧小椰树剪影（慢速视差滚动） -->
+    <g stroke="#3E6E6B" opacity="0.6" fill="none" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="translate" values="0 0;-1280 0" dur="48s" repeatCount="indefinite"/>
+      <path d="M1080 240 L1076 200" stroke-width="3"/>
+      <path d="M1076 200 Q1062 192 1050 196 M1076 200 Q1070 188 1058 190 M1076 200 Q1082 186 1092 190 M1076 200 Q1088 194 1098 200" stroke-width="2.5"/>
+      <path d="M1160 240 L1157 212" stroke-width="2.5"/>
+      <path d="M1157 212 Q1146 205 1136 208 M1157 212 Q1152 202 1142 204 M1157 212 Q1162 202 1170 206 M1157 212 Q1167 207 1174 212" stroke-width="2"/>
+      <path d="M2360 240 L2356 200" stroke-width="3"/>
+      <path d="M2356 200 Q2342 192 2330 196 M2356 200 Q2350 188 2338 190 M2356 200 Q2362 186 2372 190 M2356 200 Q2368 194 2378 200" stroke-width="2.5"/>
+      <path d="M2440 240 L2437 212" stroke-width="2.5"/>
+      <path d="M2437 212 Q2426 205 2416 208 M2437 212 Q2432 202 2422 204 M2437 212 Q2442 202 2450 206 M2437 212 Q2447 207 2454 212" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- ==================== bg-coast：中景海岸带 Y 380–460（泡沫线 / 湿沙 / 干沙） ==================== -->
+  <g id="bg-coast">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-160 0" dur="1.8s" repeatCount="indefinite"/>
+      <path d="M-160 380 Q-120 375 -80 380 T0 380 T160 380 T320 380 T480 380 T640 380 T800 380 T960 380 T1120 380 T1280 380 T1440 380" fill="none" stroke="#F5F2E9" stroke-width="6" opacity="0.85"/>
+    </g>
+    <rect x="0" y="385" width="1280" height="9" fill="#F5F2E9"/>
+    <rect x="0" y="394" width="1280" height="34" fill="#8C7B66"/>
+    <rect x="0" y="394" width="1280" height="10" fill="#7A6A56" opacity="0.6"/>
+    <g stroke="#6E5F4C" stroke-width="2" opacity="0.4" stroke-linecap="round" fill="none">
+      <path d="M140 408 H240"/>
+      <path d="M520 412 H640"/>
+      <path d="M980 406 H1080"/>
+    </g>
+    <rect x="0" y="428" width="1280" height="32" fill="#E0C194"/>
+    <g fill="#C9A873" opacity="0.7">
+      <circle cx="90" cy="446" r="2.5"/><circle cx="330" cy="438" r="2"/><circle cx="560" cy="450" r="2.5"/>
+      <circle cx="760" cy="440" r="2"/><circle cx="1010" cy="448" r="2.5"/><circle cx="1190" cy="438" r="2"/>
+    </g>
+  </g>
+
+  <!-- ==================== bg-road：近景公路 Y 460–720（沥青 / 透视路缘石 / 中央虚线滚动 / 主体投影） ==================== -->
+  <g id="bg-road">
+    <rect x="0" y="460" width="1280" height="260" fill="#3A3F44"/>
+    <rect x="0" y="460" width="1280" height="20" fill="#575E64"/>
+    <path d="M0 461 H1280" stroke="#C9B183" stroke-width="3" opacity="0.85" fill="none"/>
+    <g stroke="#3A3F44" stroke-width="3" fill="none">
+      <animateTransform attributeName="transform" type="translate" values="0 0;-160 0" dur="0.56s" repeatCount="indefinite"/>
+      <path d="M0 464 V476 M160 464 V476 M320 464 V476 M480 464 V476 M640 464 V476 M800 464 V476 M960 464 V476 M1120 464 V476 M1280 464 V476 M1440 464 V476"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-142 0" dur="0.5s" repeatCount="indefinite"/>
+      <path d="M-160 660 H1440" fill="none" stroke="#E8E6E0" stroke-width="10" stroke-dasharray="90 52" opacity="0.92"/>
+    </g>
+    <ellipse cx="940" cy="614" rx="250" ry="15" fill="#22303A" opacity="0.27"/>
+  </g>
+
+  <!-- ==================== fg-palm：近景椰树剪影（画面左侧 1/3，随车速快速滚动，树干右缘带暖黄受光高光） ==================== -->
+  <g id="fg-palm">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-1280 0" dur="4.5s" repeatCount="indefinite"/>
+      <ellipse cx="392" cy="470" rx="42" ry="9" fill="#22303A" opacity="0.22"/>
+      <ellipse cx="1672" cy="470" rx="42" ry="9" fill="#22303A" opacity="0.22"/>
+      <g fill="none" stroke-linecap="round">
+        <path d="M392 466 C378 396 362 296 352 196" stroke="#26343A" stroke-width="16"/>
+        <path d="M1672 466 C1658 396 1642 296 1632 196" stroke="#26343A" stroke-width="16"/>
+        <g stroke="#26343A" stroke-width="10">
+          <path d="M352 196 Q300 160 258 182"/><path d="M352 196 Q310 120 272 126"/>
+          <path d="M352 196 Q354 110 376 118"/><path d="M352 196 Q402 126 444 142"/>
+          <path d="M352 196 Q416 162 462 186"/><path d="M352 196 Q286 182 250 210"/>
+          <path d="M1632 196 Q1580 160 1538 182"/><path d="M1632 196 Q1590 120 1552 126"/>
+          <path d="M1632 196 Q1634 110 1656 118"/><path d="M1632 196 Q1682 126 1724 142"/>
+          <path d="M1632 196 Q1696 162 1742 186"/><path d="M1632 196 Q1566 182 1530 210"/>
+        </g>
+        <path d="M401 450 C387 382 373 296 363 208" stroke="#E8B86B" stroke-width="3.5" opacity="0.9"/>
+        <path d="M1681 450 C1667 382 1653 296 1643 208" stroke="#E8B86B" stroke-width="3.5" opacity="0.9"/>
+      </g>
+      <circle cx="356" cy="206" r="7" fill="#1C282C"/><circle cx="368" cy="212" r="6" fill="#1C282C"/>
+      <circle cx="1636" cy="206" r="7" fill="#1C282C"/><circle cx="1648" cy="212" r="6" fill="#1C282C"/>
+    </g>
+  </g>
+
+  <!-- ==================== rider-group：主体整体（车身随踩踏节奏 0.75s 垂直起伏 4–6px） ==================== -->
+  <g id="rider-group">
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" keyTimes="0;0.5;1" dur="0.75s" repeatCount="indefinite"/>
+
+    <!-- pelican-far-limbs：远侧腿与蹼足（先于车架绘制，严格跟随远侧脚踏圆周轨迹） -->
+    <g id="pelican-far-limbs">
+      <path fill="none" stroke="#C77E2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
+        <animate attributeName="d" dur="1.5s" repeatCount="indefinite" keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+        values="M890 450L962.5 515L898 584;
+                M890 450L970.2 507.3L900.4 571.8;
+                M890 450L976.9 497.1L907.4 561.4;
+                M890 450L983.3 485.5L917.8 554.4;
+                M890 450L986.8 475.9L930 552;
+                M890 450L988.1 471.2L942.2 554.4;
+                M890 450L987.7 473.1L952.6 561.4;
+                M890 450L985.3 480.3L959.6 571.8;
+                M890 450L980.8 490.9L962 584;
+                M890 450L973.9 502.3L959.6 596.2;
+                M890 450L965.7 511.5L952.6 606.6;
+                M890 450L958 520L942.2 613.6;
+                M890 450L952.6 524L930 616;
+                M890 450L951.9 524.9L917.8 613.6;
+                M890 450L953.5 522.6L907.4 606.6;
+                M890 450L957.6 520.3L900.4 596.2;
+                M890 450L962.5 515L898 584"/>
+      </path>
+      <g fill="#C77E2E">
+        <animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+        values="898 584;900.4 571.8;907.4 561.4;917.8 554.4;930 552;942.2 554.4;952.6 561.4;959.6 571.8;962 584;959.6 596.2;952.6 606.6;942.2 613.6;930 616;917.8 613.6;907.4 606.6;900.4 596.2;898 584"/>
+        <path d="M-9 -8 Q8 -12 22 -7 Q36 -4 40 1 Q34 6 26 5 Q30 9 22 7 Q24 11 14 8 Q2 8 -9 3 Q-14 -2 -9 -8 Z"/>
+      </g>
+    </g>
+
+    <!-- ==================== bike-group：复古黑色钢架公路车（真实几何比例：水平上管 / 弯把 / 车座 / 链条 / 牙盘曲柄 / 细辐条车轮） ==================== -->
+    <g id="bike-group">
+      <!-- 后轮（辐条顺时针 360°/1.5s） -->
+      <g id="wheel-rear">
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 840 542" to="360 840 542" dur="1.5s" repeatCount="indefinite"/>
+          <path d="M840 542 L898 542 M840 542 L890.2 571 M840 542 L869 592.2 M840 542 L840 600 M840 542 L811 592.2 M840 542 L789.8 571 M840 542 L782 542 M840 542 L789.8 513 M840 542 L811 491.8 M840 542 L840 484 M840 542 L869 491.8 M840 542 L890.2 513" stroke="#C9C9CD" stroke-width="1.6" opacity="0.9" fill="none"/>
+          <circle cx="890" cy="542" r="3" fill="#C9C9CD"/>
+        </g>
+        <circle cx="840" cy="542" r="68" fill="none" stroke="#242427" stroke-width="9"/>
+        <circle cx="840" cy="542" r="60" fill="none" stroke="#C9C9CD" stroke-width="3"/>
+        <path d="M791.9 493.9 A68 68 0 0 1 840 474" fill="none" stroke="#FFD9A0" stroke-width="2.5" opacity="0.55"/>
+        <circle cx="840" cy="542" r="7" fill="#3A3A3E"/>
+      </g>
+      <!-- 前轮 -->
+      <g id="wheel-front">
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 1040 542" to="360 1040 542" dur="1.5s" repeatCount="indefinite"/>
+          <path d="M1040 542 L1098 542 M1040 542 L1090.2 571 M1040 542 L1069 592.2 M1040 542 L1040 600 M1040 542 L1011 592.2 M1040 542 L989.8 571 M1040 542 L982 542 M1040 542 L989.8 513 M1040 542 L1011 491.8 M1040 542 L1040 484 M1040 542 L1069 491.8 M1040 542 L1090.2 513" stroke="#C9C9CD" stroke-width="1.6" opacity="0.9" fill="none"/>
+          <circle cx="1090" cy="542" r="3" fill="#C9C9CD"/>
+        </g>
+        <circle cx="1040" cy="542" r="68" fill="none" stroke="#242427" stroke-width="9"/>
+        <circle cx="1040" cy="542" r="60" fill="none" stroke="#C9C9CD" stroke-width="3"/>
+        <path d="M991.9 493.9 A68 68 0 0 1 1040 474" fill="none" stroke="#FFD9A0" stroke-width="2.5" opacity="0.55"/>
+        <circle cx="1040" cy="542" r="7" fill="#3A3A3E"/>
+      </g>
+      <!-- 链条与后飞轮 -->
+      <circle cx="840" cy="542" r="9" fill="none" stroke="#3A3A3E" stroke-width="4"/>
+      <path d="M930 560 L840 534 M930 608 L840 550" stroke="#55555A" stroke-width="3.5" fill="none"/>
+      <!-- 钢架（水平上管 / 座管 / 头管 / 下管 / 前叉 / 后上叉 / 后下叉 / 钻石三角结构） -->
+      <g stroke="#26282B" stroke-width="7" stroke-linecap="round" fill="none">
+        <path d="M866 494 L930 584"/>
+        <path d="M870 502 L996 490"/>
+        <path d="M992 470 L1008 518"/>
+        <path d="M930 584 L994 494"/>
+        <path d="M1006 516 L1040 542"/>
+        <path d="M930 584 L840 542"/>
+        <path d="M868 504 L840 542"/>
+        <path d="M998 470 L1006 458" stroke-width="6"/>
+      </g>
+      <path d="M874 498 L992 486" stroke="#FFD9A0" stroke-width="2" opacity="0.55" fill="none"/>
+      <!-- 弯把与棕色把带 -->
+      <path d="M1006 458 C1036 460 1044 488 1024 506" fill="none" stroke="#26282B" stroke-width="6" stroke-linecap="round"/>
+      <path d="M1030 464 C1040 476 1038 494 1026 504" fill="none" stroke="#8A5A3B" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- 棕色复古车座 -->
+      <rect x="834" y="476" width="62" height="13" rx="6" fill="#8A5A3B"/>
+      <path d="M840 479 Q864 471 890 477" fill="none" stroke="#A97950" stroke-width="2" opacity="0.9"/>
+      <!-- 牙盘与曲柄（360° 匀速，脚踏反向补偿恒保持水平） -->
+      <g id="crank">
+        <animateTransform attributeName="transform" type="rotate" from="0 930 584" to="360 930 584" dur="1.5s" repeatCount="indefinite"/>
+        <circle cx="930" cy="584" r="24" fill="none" stroke="#3A3A3E" stroke-width="5"/>
+        <path d="M930 584 L962 584" stroke="#505057" stroke-width="6.5" stroke-linecap="round"/>
+        <path d="M930 584 L898 584" stroke="#3F4045" stroke-width="6.5" stroke-linecap="round"/>
+        <g transform="translate(962,584)">
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="1.5s" repeatCount="indefinite"/>
+            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="#C9C9CD"/>
+          </g>
+        </g>
+        <g transform="translate(898,584)">
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="1.5s" repeatCount="indefinite"/>
+            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="#A9ACB0"/>
+          </g>
+        </g>
+        <circle cx="930" cy="584" r="8" fill="#2E3033"/>
+      </g>
+    </g>
+
+    <!-- ==================== pelican-group：成年白鹈鹕（多层白羽 / 侧逆光边缘高光 / 冷色背光阴影 / 躯干随车身起伏延迟 0.08s） ==================== -->
+    <g id="pelican-group">
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -3.5;0 0" keyTimes="0;0.5;1" dur="0.75s" begin="0.08s" repeatCount="indefinite"/>
+      <!-- 尾羽 -->
+      <path d="M824 432 L776 408 L784 440 L804 456 Z" fill="#EDE6D8"/>
+      <!-- 躯干（多层羽毛蓬松感） -->
+      <ellipse cx="904" cy="416" rx="88" ry="54" transform="rotate(-8 904 416)" fill="#F6F1E8"/>
+      <!-- 背光腹侧冷青灰阴影（0.3） -->
+      <path d="M824 416 Q900 478 980 414 Q900 452 824 416 Z" fill="#8FA6B8" opacity="0.3"/>
+      <!-- 羽层弧线 -->
+      <path d="M840 436 Q904 460 972 428" fill="none" stroke="#E9E2D4" stroke-width="4" opacity="0.9"/>
+      <path d="M856 400 Q904 420 960 396" fill="none" stroke="#E9E2D4" stroke-width="3" opacity="0.8"/>
+      <!-- 左上侧逆光受光边缘高光 -->
+      <path d="M990 398 Q944 356 858 372 Q824 384 816 416" fill="none" stroke="#FFD9A0" stroke-width="7" stroke-linecap="round" opacity="0.95"/>
+      <!-- 双翼前伸（浅色羽覆盖车架，右翼压弯把） -->
+      <path d="M960 386 C992 400 1016 432 1024 462 C1010 472 984 462 972 440 C962 420 956 404 960 386 Z" fill="#EDE6D8"/>
+      <path d="M966 398 C990 410 1004 432 1010 452" fill="none" stroke="#E9E2D4" stroke-width="2.5" opacity="0.85"/>
+      <!-- 头颈组：随车身律动相位再滞后并微俯仰 ±1.5° -->
+      <g id="head-group">
+        <animateTransform attributeName="transform" type="rotate" values="0 966 398;1.6 966 398;0 966 398;-1.2 966 398;0 966 398" keyTimes="0;0.25;0.5;0.75;1" dur="0.75s" begin="0.14s" repeatCount="indefinite"/>
+        <!-- 颈部（背侧冷阴影） -->
+        <path d="M934 392 C950 396 952 368 950 330" fill="none" stroke="#8FA6B8" stroke-width="5" opacity="0.3"/>
+        <path d="M932 394 C976 380 980 336 984 292 L1020 300 C1016 352 1004 398 960 424 Z" fill="#F6F1E8"/>
+        <!-- 头部 -->
+        <circle cx="1004" cy="288" r="23" fill="#F6F1E8"/>
+        <path d="M986 274 Q978 264 982 256 M982 258 Q976 250 980 244" fill="none" stroke="#F6F1E8" stroke-width="4" stroke-linecap="round"/>
+        <!-- 头顶受光边缘 -->
+        <path d="M988 272 Q1006 256 1024 272" fill="none" stroke="#FFD9A0" stroke-width="5" stroke-linecap="round" opacity="0.95"/>
+        <!-- 橙黄长喙（前微仰）+ 喉囊 -->
+        <path d="M1022 274 L1144 280 L1022 292 Z" fill="#E8973E"/>
+        <path d="M1022 274 L1144 280" fill="none" stroke="#FFC97E" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M1024 292 C1052 326 1104 324 1136 290 L1138 287 L1024 290 Z" fill="#D97E33"/>
+        <!-- 眼睛 -->
+        <circle cx="998" cy="280" r="4.4" fill="#2A2A2E"/>
+        <circle cx="996.6" cy="278.6" r="1.4" fill="#FFFFFF" opacity="0.85"/>
+      </g>
+    </g>
+
+    <!-- 近侧腿与蹼足（覆盖车架之上，严格贴合近侧脚踏圆周轨迹） -->
+    <g id="pelican-near-limbs">
+      <path fill="none" stroke="#E8973E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+        <animate attributeName="d" dur="1.5s" repeatCount="indefinite" keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+        values="M896 448L980.8 490.9L962 584;
+                M896 448L973.9 502.3L959.6 596.2;
+                M896 448L965.7 511.5L952.6 606.6;
+                M896 448L958 520L942.2 613.6;
+                M896 448L952.6 524L930 616;
+                M896 448L951.9 524.9L917.8 613.6;
+                M896 448L953.5 522.6L907.4 606.6;
+                M896 448L957.6 520.3L900.4 596.2;
+                M896 448L962.5 515L898 584;
+                M896 448L970.2 507.3L900.4 571.8;
+                M896 448L976.9 497.1L907.4 561.4;
+                M896 448L983.3 485.5L917.8 554.4;
+                M896 448L986.8 475.9L930 552;
+                M896 448L988.1 471.2L942.2 554.4;
+                M896 448L987.7 473.1L952.6 561.4;
+                M896 448L985.3 480.3L959.6 571.8;
+                M896 448L980.8 490.9L962 584"/>
+      </path>
+      <g fill="#E8973E">
+        <animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+        values="962 584;959.6 596.2;952.6 606.6;942.2 613.6;930 616;917.8 613.6;907.4 606.6;900.4 596.2;898 584;900.4 571.8;907.4 561.4;917.8 554.4;930 552;942.2 554.4;952.6 561.4;959.6 571.8;962 584"/>
+        <path d="M-9 -8 Q8 -12 22 -7 Q36 -4 40 1 Q34 6 26 5 Q30 9 22 7 Q24 11 14 8 Q2 8 -9 3 Q-14 -2 -9 -8 Z"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== lighting-overlay：全局光影（暖色滤光 + 左上柔光 + 四角径向暗角） ==================== -->
+  <g id="lighting-overlay">
+    <rect x="0" y="0" width="1280" height="720" fill="url(#glowG)"/>
+    <rect x="0" y="0" width="1280" height="720" fill="#F2A65E" opacity="0.08"/>
+    <rect x="0" y="0" width="1280" height="720" fill="url(#vigG)"/>
+  </g>
+</svg>
+</body>
+</html>
